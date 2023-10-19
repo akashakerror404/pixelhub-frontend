@@ -1,0 +1,15 @@
+/* Hide scrollbar */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Optional: Style the scrollbar */
+  .scrollbar-hide::-webkit-scrollbar-thumb {
+    background: #888; /* Change this to your desired color */
+    border-radius: 4px;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Change this to your desired color */
+  }
+  
