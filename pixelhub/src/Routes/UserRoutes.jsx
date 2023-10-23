@@ -14,6 +14,8 @@ import Userchat from '../Componets/User/Home/Userchat';
 import Blogpage from '../Componets/User/Blogs/Blogpage';
 import Blogdetailpage from '../Componets/User/Blogs/Blogdetailpage';
 import Createblog from '../Componets/User/Blogs/Createblog';
+import RequriedAuth from '../Autharization/RequriedAuth';
+import Paymentsucess from '../Componets/User/Home/Paymentsucess';
 
 
 
@@ -25,29 +27,29 @@ const UserRoutes = () => {
                 <Route exact path="/signup" element={<Signup />} />
                 <Route exact path="/signin" element={<Signin />} />
                 <Route exact path="/otpconfirmation" element={<Otp/>} />
+                <Route exact path="/paymentsucess" element={<Paymentsucess />} />
+
 
 
                 <Route exact path="/course" element={<Coursepage />} />
                 <Route exact path="/coursedetail/:courseId" element={<Coursedeatils />} />
                 {/* <Route exact path="profile" element={<Userprofile />} /> */}
-                <Route exact path="/enrollments" element={<Enrollments />} />
                 <Route exact path="/video" element={<Videoclass />} />
                 <Route exact path="/about" element={<About />} />
-                <Route exact path="/userchat" element={<Userchat />} />
                 <Route exact path="/blogs" element={<Blogpage />} />
                 <Route path="/blogdetails/:id" element={<Blogdetailpage />} />
-                <Route exact path="/createblog" element={<Createblog />} />
-
-
-
-
-
-
-
-
-
-
+                <Route element={<RequriedAuth />}> 
+                <Route exact path="/enrollments" element={<Enrollments />} />
                 <Route exact path="/profile" element={<Userprofile />} />
+                <Route exact path="/createblog" element={<Createblog />} />
+                <Route exact path="/userchat" element={<Userchat />} />
+
+
+
+
+                
+                
+                 </Route>
 
                 
             

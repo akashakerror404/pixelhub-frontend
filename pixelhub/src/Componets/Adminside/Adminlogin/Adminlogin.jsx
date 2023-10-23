@@ -42,11 +42,25 @@ function Adminlogin() {
           }
         );
         console.log(data)
-  
+
+
+        let role;
+
+        if (data.is_superuser) {
+          role = 400;
+        } else {
+          // Set the role to some other value if is_superuser is false
+          role = ""
+        }
+          
   
         const accessToken=data.access
+        
         // const role=data.role
-        const role = data.is_superuser; // Access the is_vendor field from the token payload
+        // const role = data.is_superuser; 
+
+
+
   
         const userId=data.id
         console.log(userId)
@@ -65,7 +79,7 @@ function Adminlogin() {
   
   
         axios.defaults.headers.common['Authorization'] = `Bearer ${data['access']}`;
-        if (role === true) {
+        if (role === 400) {
           // Navigate to the 'course' page or any other destination for vendors
           navigate('/admin/dashboard'); // Adjust the URL as needed
         } else {

@@ -28,8 +28,37 @@ function Signup() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [showEarth, setShowEarth] = useState(true);
 
+
+    const [passwordStrength, setPasswordStrength] = useState({
+      hasUppercase: false,
+      hasDigit: false,
+    });
+  
+    const handlePasswordChange = (e) => {
+      const newPassword = e.target.value;
+      setPassword(newPassword);
+  
+      const uppercaseRegex = /[A-Z]/;
+      const hasUppercase = uppercaseRegex.test(newPassword);
+  
+      const digitRegex = /\d/;
+      const hasDigit = digitRegex.test(newPassword);
+  
+      setPasswordStrength({ hasUppercase, hasDigit });
+    };
+    
+  
+
   
     const handleSubmit = async () => {
+      if (!passwordStrength.hasUppercase || !passwordStrength.hasDigit) {
+        toast.error('Password must contain at least one uppercase letter and one digit.');
+        return;
+      }
+      if (password !== confirmPassword) {
+        toast.error('Password and Confirm Password do not match.');
+        return;
+      }
       // Access form data from state variables
       console.log('Username:', username);
       console.log('Email:', email);
@@ -59,9 +88,12 @@ function Signup() {
 
                       setConfirmPassword('');
                       }
+                      if(response.status === 400) {
+                        console.log(response.status)
+                      }
         
       }catch(error){
-        toast.error('An error occurred. Please check your network connection.');
+        toast.error('username alredy exist.');
 
         console.error('Login failed:', error.message );
       }
@@ -142,13 +174,19 @@ useEffect(() => {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     />
-                    <input
+                     <input
                     className="mb-4 w-full border border-gray-300 rounded-full px-3 py-2 outline-none focus:border-blue-500 text-lg"
                     type="password"
                     placeholder="Password"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    />
+                    onChange={handlePasswordChange}
+                  />
+                  {!passwordStrength.hasUppercase && password.length > 0 && (
+                    <p className="text-red-500 text-sm">Password must contain at least one uppercase letter.</p>
+                  )}
+                  {!passwordStrength.hasDigit && password.length > 0 && (
+                    <p className="text-red-500 text-sm">Password must contain at least one digit.</p>
+                  )}
                     <input
                     className="mb-4 w-full border border-gray-300 rounded-full px-3 py-2 outline-none focus:border-blue-500 text-lg"
                     type="password"
@@ -156,6 +194,9 @@ useEffect(() => {
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     />
+                     {password !== confirmPassword && confirmPassword !== '' && (
+                    <p className="text-red-500 text-sm">Password and Confirm Password do not match.</p>
+                  )}
                   <button class="w-full h-12 px-6 text-white transition-colors duration-150 bg-blue-700 rounded-lg focus:shadow-outline hover:text-white hover:bg-blue-700" onClick={handleSubmit}>Signup</button>
 
                   

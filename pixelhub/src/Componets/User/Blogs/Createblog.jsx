@@ -71,14 +71,7 @@ function Createblog() {
     return (
         <div>
             <Customenavbar/>
-            <div class="flex mb-4">
-                <div class="w-1/2 bg-gray-400 h-12"></div>
-                <div class="w-1/2 bg-gray-500 h-[250px]">
-                <Lottie animationData={earth} />
-
-
-                </div>
-                </div>
+      
             <div className="md:p-6 p-4 bg-white text-black">
                 <form onSubmit={handleSubmit}>
                     <div className="border-b border-gray-900/10 pb-12">

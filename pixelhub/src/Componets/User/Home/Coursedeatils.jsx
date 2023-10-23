@@ -19,9 +19,9 @@ function Coursedeatils() {
     const [courseDetails, setCourseDetails] = useState({});
     const [showFullContent, setShowFullContent] = useState(false);
     const location =useLocation();
-    const discountamount = courseDetails.price/courseDetails.discount_percentage
-    console.log(discountamount)
-    const totalamount=courseDetails.price-discountamount
+    const discountamount = courseDetails.price / courseDetails.discount_percentage;
+    const totalamount = Math.round(courseDetails.price - discountamount);
+
 
     
     useEffect(() => {

@@ -26,6 +26,7 @@ function Enrollments() {
   return (
     <>
       <Customenavbar />
+      <div className='md:p-6 p-2 bg-[#f2f5eb]'>
       <div className="flex ">
         <div className="w-full   bg-[#f2f5eb]  ">
           <h1 className="py-3 text-3xl text-black pl-8">
@@ -41,6 +42,7 @@ function Enrollments() {
             <Enrollmentprogresscard key={course.id} course={course} navigate={navigate} />
           ))}
         </div>
+      </div>
       </div>
     </>
   );

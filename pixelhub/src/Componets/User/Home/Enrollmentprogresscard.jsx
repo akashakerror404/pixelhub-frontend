@@ -26,7 +26,7 @@ function Enrollmentprogresscard({ course }) {
 
 
   return (
-        <div className="bg-white md:h-1/2 p-6 mb-4  ">
+        <div className="bg-white md:h-1/2 p-6 mb-4 w-1/4 ">
           <h1 className="p-2 truncate font-semi">{course.coursename}</h1>
           <img
             src={`${API_URL}${course.coverphoto}`}
@@ -49,22 +49,13 @@ function Enrollmentprogresscard({ course }) {
                 </div>
               </div>
             </div>
-            <button onClick={() => navigate(`/video?courseid=${courseid}&coursename=${coursename}`)}>
-                  <a class=" border border-gray-500 relative inline-flex items-center justify-start px-6 md:w-72 w-64 overflow-hidden font-medium transition-all bg-[#20B486] rounded-full hover:bg-white group ">
-                    <span class="w-48 h-48 rounded rotate-[-40deg] bg-white absolute bottom-0 left-0 -translate-x-full ease-out duration-500 transition-all translate-y-full mb-9 ml-9 group-hover:ml-0 group-hover:mb-32 group-hover:translate-x-0"></span>
-                    <span class="relative w-full text-center text-white transition-colors duration-300 ease-in-out group-hover:text-[#20B486] ">
-                    Continue
-                    </span>
-                  </a>
-                </button>
-            
-            
-            {/* <div className="w-full bg-neutral-200 bg-[#2d737a] border-2 border-[#2d737a] rounded-full">
+            <div className="group flex rounded-full justify-center bg-[#5ed62f] h-8 mb-4 p-2 hover-bg-green-500 transition-colors duration-300">
+              <button className="block text-white text-sm font-sans uppercase pr-4 " onClick={() => navigate(`/video?courseid=${courseid}&coursename=${coursename}`)}>
+                CONTINUE
+              </button>
               
-              <div className="bg-white p-0.5 text-center text-black text-xs font-medium leading-none rounded-full" style={{ width: "100%" }} onClick={() => navigate(`/video?courseid=${courseid}&coursename=${coursename}`)}>
-                Continue
-              </div>
-            </div> */}
+            </div>
+           
           </div>
         </div>
   );

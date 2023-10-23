@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Adminnavbar from '../Adminnav/Adminnavbar';
 import axios from '../../../axios';
+import { API_URL } from '../../Baseurl';
 
 function Videos() {
   const { courseId } = useParams();
@@ -68,7 +69,7 @@ function Videos() {
                     <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-300">
                       {/* Open the video in a popup when clicked */}
                       <button
-                        onClick={() => openVideoPopup(`http://127.0.0.1:8000${video.video_url}`)}
+                        onClick={() => openVideoPopup(`${API_URL}${video.video_url}`)}
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                       >
                         View Video

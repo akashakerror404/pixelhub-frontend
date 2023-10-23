@@ -50,7 +50,7 @@ function Signin() {
 
       const accessToken=data.access
       // const role=data.role
-      const role = data.is_vendor; // Access the is_vendor field from the token payload
+      const role = data.is_vendor ? 300 : "";
 
       const userId=data.id
       console.log(userId)
@@ -69,9 +69,9 @@ function Signin() {
 
 
       axios.defaults.headers.common['Authorization'] = `Bearer ${data['access']}`;
-      if (role === true) {
+      if (role === 300) {
         // Navigate to the 'course' page or any other destination for vendors
-        navigate('/vendor/coursemanage'); // Adjust the URL as needed
+        navigate('/vendor/dashboard'); // Adjust the URL as needed
       } else {
         // Navigate to a different page for non-vendors
         navigate('/');

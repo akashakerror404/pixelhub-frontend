@@ -53,10 +53,7 @@ function Courseadmindetail() {
                     <p className='md:text-2xl text-white'><span className='text-red-500'>Description :</span>{courseDetails.description} </p>
 
                 </div>
-                {/* <div class="md:w-1/4 bg-[#1F2A40]">
-                <img src={cardimage} alt="" className='h-40 w-full objacts-cover' onClick={()=>navigate('/admincoursedetail')} />
-
-                </div> */}
+            
                 
                 </div>
 

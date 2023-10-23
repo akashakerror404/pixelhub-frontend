@@ -8,12 +8,15 @@ import Customenavbar from '../Navbar/Customenavbar';
 import Search from './Search';
 import earth from '../../../Animations/earth.json';
 import Lottie from 'lottie-react'
+import Permission from '../../../Permission';
 
 function Herohome() {
 
     return (
         <>
         <Customenavbar/>
+        <Permission/>
+
         <div className='w-full bg-white py-24'>
         <div className='max-w-[1380px] m-auto grid grid-cols-1 md:grid-cols-2'>
         {/* <Lottie animationData={earth} /> */}

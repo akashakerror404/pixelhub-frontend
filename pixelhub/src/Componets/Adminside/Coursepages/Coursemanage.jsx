@@ -36,14 +36,7 @@ function Coursemanage() {
         </div>
 
            
-            {/* <div className='md:flex md:max-w-[1300px] m-auto  max-w-[300px]'>
-            {courses.map((courses)=>(
-                <Courseaddcard courses={courses}/>
-
-            ))}
-          
-            
-            </div> */}
+    
 
 
 

@@ -1,12 +1,23 @@
-import React from 'react';
 import cardimage from '../../../static/photoshop.jpg';
 import Card from './Card';
 import Slider from "react-slick";
+import React, { useState, useEffect } from 'react';
+import axios from '../../../axios';
+
 function Coursecards() {
   
+  const [courses, setCourses] = useState([]);
 
-
-
+  useEffect(() => {
+    axios.get('/courses_all')
+      .then((response) => {
+        setCourses(response.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching course data:', error);
+      });
+  }, []);
+console.log(courses)
 
   var settings = {
     dots: true,
@@ -49,16 +60,10 @@ function Coursecards() {
       <h1 className='py-3 text-3xl' >Most Popular  <span className='text-black'>Courses</span></h1>
       <p>Verious Version have envolved over the years sometimes by accident</p>
     <Slider {...settings}>
-    <Card/>
-    <Card/>
-    <Card/>
-    <Card/>
-    <Card/>
-    <Card/>
+    {courses.map((course) => (
+            <Card key={course.id} course={course} />
+          ))}
 
-
-    <Card/>
-    <Card/>
 
     </Slider>
     </div>

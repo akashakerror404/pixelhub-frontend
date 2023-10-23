@@ -13,7 +13,7 @@ import Runnigcources from '../Componets/Vendoeside/Coursepages/Runnigcources';
 import Vendorchat from '../Componets/Vendoeside/Venderchat/Vendorchat';
 import Payments from '../Componets/Vendoeside/Transactions/Payments';
 import Vendordash from '../Componets/Vendoeside/Vendordash/Vendordash';
-import Adminnotofication from '../Componets/Vendoeside/Vendornavbar/Adminnotofication';
+import Vendorauth from '../Autharization/Vendorauth';
 
 function VendorRoute() {
   return (
@@ -24,6 +24,11 @@ function VendorRoute() {
 
 
 
+   
+
+
+
+        <Route element={<Vendorauth />}> 
         <Route  path="/coursemanage" element={<Coursemanage />} />
         <Route path="/addcourse" element={<Addcourse/>} />
         <Route path="/videos/:courseId" element={<Videos />} />
@@ -35,11 +40,14 @@ function VendorRoute() {
         <Route  path="/chatbox" element={<Vendorchat />} />
         <Route  path="/payments" element={<Payments />} />
         <Route  path="/dashboard" element={<Vendordash/>} />
-        <Route  path="/notofications" element={<Adminnotofication/>} />
+               
 
 
 
 
+                
+                
+                 </Route>
 
         
 

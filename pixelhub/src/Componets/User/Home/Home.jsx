@@ -7,11 +7,11 @@ import Coursecards from './Coursecards';
 import Achivemets from './Achivemets';
 import WhatsApp from '../Whatsapp/Whatsapp';
 
+
 function Home() {
     
   return (
     <>
-
 
 
 <Herohome/>

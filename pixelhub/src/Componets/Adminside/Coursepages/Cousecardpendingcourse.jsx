@@ -13,6 +13,7 @@ function Cousecardpendingcourse({courses}) {
     const { isAuthenticated, userId } = useSelector((state) => state.user);
     console.log(userId)
     const vendorId=courses.vendor_id
+    const message=(courses.coursename)
     console.log(vendorId)
     const roomName = `${vendorId}_${"admin"}`;
     console.log("room name", roomName)
@@ -36,10 +37,19 @@ function Cousecardpendingcourse({courses}) {
     }, [socket, roomName]);
   
     const handlePublishClick = (courseId) => {
+
+       axios.post(`/publish_course_admin/${courseId}/`)
+          .then((response) => {
+            navigate('/admin/fullcourses');
+            console.log('Course published successfully');
+          })
+          .catch((error) => {
+            console.error('Error publishing course:', error);
+          });
       console.log('here')
       if (socket.readyState === WebSocket.OPEN) {
         const messageToSend = {
-          message_content: 'course publised',
+          message_content: `Course "${courses.coursename}" published`,
         };
         socket.send(JSON.stringify(messageToSend));
       } else {

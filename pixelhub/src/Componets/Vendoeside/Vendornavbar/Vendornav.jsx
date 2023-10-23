@@ -1,5 +1,5 @@
 // import React from 'react'
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect,useRef } from 'react';
 import 'font-awesome/css/font-awesome.min.css';
 // import logo from '../../../static/logopixel.png';static/logopixel.png';
 import logo from '../../../static/logopixel.png';
@@ -8,6 +8,8 @@ import {useSelector, useDispatch} from 'react-redux';
 import {clearUserData} from '../../../Store/Actions/UserAction';
 import {HiBellAlert} from 'react-icons/hi2';
 import axios from '../../../axios'
+import beepSound from '../../../static/notification.mp3'; // Adjust the import path
+import Permission from '../../../Permission';
 
 function Vendornav() { // const { isAuthenticated, username, role } = useSelector((state) => state.user);
 
@@ -20,11 +22,16 @@ function Vendornav() { // const { isAuthenticated, username, role } = useSelecto
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
     const [receivedMessages, setReceivedMessages] = useState([]);
+    
+    const playNotificationSound = () => {
+        const audio = new Audio(beepSound);
+        audio.play();
+      };
     console.log(receivedMessages)
     const count = receivedMessages.length
-    // const bellIconClasses = color({
-    //   'red': count > 0, // Apply this class when count is greater than 0
-    // });
+    
+    
+    
     useEffect(() => {
         const newSocket = new WebSocket(`ws://127.0.0.1:8000/ws/note-chat/${roomName}/`);
         setSocket(newSocket);
@@ -44,6 +51,7 @@ function Vendornav() { // const { isAuthenticated, username, role } = useSelecto
         };
     }, []); // Include userId in the dependency array
     useEffect(() => {
+
         if (socket) {
             socket.onopen = () => {
                 console.log("WebSocket connection opened");
@@ -58,6 +66,10 @@ function Vendornav() { // const { isAuthenticated, username, role } = useSelecto
                     ...prevMessages,
                     message_get
                 ]);
+            if (Notification.permission=='granted'){
+                playNotificationSound()
+            }
+
             };
         }
     }, [socket]);
@@ -73,9 +85,16 @@ function Vendornav() { // const { isAuthenticated, username, role } = useSelecto
     const handleLogout = () => {
         dispatch(clearUserData());
         console.log("logout")
+        navigate('/signin'); // Adjust the URL as needed
+
     }
+
+    
+
     return (
         <>
+
+            <Permission onNewMessage={playNotificationSound}/>
             <div className='w-full h-[80px] bg-[#141B2D] border-b shadow fixed z-50'>
                 <div className='md:max-w-[1240px]  max-w-[330px] w-full h-full flex justify-between items-center m-auto'>
                     {/* <h1 className='h-[25px] text-2xl text-green-500'>pixel hub</h1> */}
@@ -87,7 +106,7 @@ function Vendornav() { // const { isAuthenticated, username, role } = useSelecto
                     </div>
 
                     <div className='hidden md:flex'>
-                        <ul className='flex gap-9'>
+                        <ul className='flex gap-6'>
                             <Link to="/vendor/dashboard">
                                 <li className='group relative px-3 py-2 text-sm font-medium text-white '>
                                     DASH  BOARD
@@ -126,53 +145,45 @@ function Vendornav() { // const { isAuthenticated, username, role } = useSelecto
                                     <div className='absolute inset-x-0 bottom-0 h-1 bg-[#FF0000] transform scale-x-0 origin-left transition-transform group-hover:scale-x-100'></div>
                                 </li>
                             </Link>
-                            <div className=''>
-                            <Link>
-                                <li className='group relative px-3 py-2 text-sm font-medium text-white '>
-                                    <HiBellAlert size={25}
-                                                color={count > 0?"red":"white"} 
 
-                                    
-                                        onClick={
-                                            () => setShowNotifications(!showNotifications)
-                                        }/> {
-                                    showNotifications &&  (
-                                        <div className="absolute top-10 right-0 p-2 bg-white shadow-md w-60 rounded-md">
-                                            <ul className="list-none p-0 m-0">
-                                                {
-                                                receivedMessages.map((message, index) => (
-                                                    <li key={index}
-                                                        className="p-2 border-b border-gray-300 text-black">
-                                                        {message} </li>
-                                                ))
-                                            } </ul>
-                             
-
+                            <div class="relative"
+                                onClick={
+                                    () => setShowNotifications(!showNotifications)
+                            }>
+                                <svg class="w-8 h-8 text-teal-600 animate-wiggle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M15.585 15.5H5.415A1.65 1.65 0 0 1 4 13a10.526 10.526 0 0 0 1.5-5.415V6.5a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4v1.085c0 1.907.518 3.78 1.5 5.415a1.65 1.65 0 0 1-1.415 2.5zm1.915-11c-.267-.934-.6-1.6-1-2s-1.066-.733-2-1m-10.912 3c.209-.934.512-1.6.912-2s1.096-.733 2.088-1M13 17c-.667 1-1.5 1.5-2.5 1.5S8.667 18 8 17"/></svg>
+                                <div class="px-1 bg-teal-500 rounded-full text-center text-white text-sm absolute -top-3 -end-2">
+                                    {
+                                    count > 0 && (
+                                        <div className="text-center ">
+                                            <span className="text-white font-xs">
+                                                {count} </span>
                                         </div>
                                     )
-                                } </li>
-                            </Link>
-
+                                }
+                                    <div class="absolute top-0 start-0 rounded-full -z-10 animate-ping bg-teal-200 w-full h-full"></div>
+                                </div>
 
                             </div>
-                          
-                            {/* {count > 0 && (
-                                <div className="text-center ">
-                                  <span className="text-red-500 font-xs">{count} new messages</span>
+                            {
+                            showNotifications && (
+
+                                <div className="absolute top-20 right-72 p-2 bg-white shadow-md w-60 rounded-md">
+                                    <ul className="list-none p-0 m-0">
+                                        {
+                                        receivedMessages.map((message, index) => (
+                                            <li key={index}
+                                                className="p-2 border-b border-gray-300 text-black">
+                                                {message} </li>
+                                        ))
+                                    } </ul>
+
+
                                 </div>
-                              )} */}
-
-
-                        </ul>
+                            )
+                        } </ul>
                     </div>
 
 
-                    {/* <div class=' hidden md:flex gap-6 flex items-center justify-center min-h-screen'>
-            <div class="border w-fit rounded-xl m-5 shadow-sm">
-                <button class="px-4 py-2 rounded-l-xl text-white m-0 bg-[#2d737a] hover:bg-red-600 transition" onClick={()=>navigate('/signin')}>Login</button>
-                <i class="fa fa-user px-4 py-2 " aria-hidden="true"></i><span>{username}</span>
-            </div>
-        </div> */}
                     <button class="hidden md:flex relative inline-flex items-center justify-center p-2 px-4 py-1 overflow-hidden font-medium text-[#2d737a] text-sm transition duration-300 ease-out border-2 border-[#2d737a] rounded-full shadow-md group"
                         onClick={
                             () => {
@@ -199,11 +210,42 @@ function Vendornav() { // const { isAuthenticated, username, role } = useSelecto
                         <span class="relative invisible">Button Text</span>
                     </button>
 
+                    <div className='md:hidden '>
+                        <div class="relative"
+                            onClick={
+                                () => setShowNotifications(!showNotifications)
+                        }>
+                            <svg class="w-8 h-8 text-teal-600 animate-wiggle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M15.585 15.5H5.415A1.65 1.65 0 0 1 4 13a10.526 10.526 0 0 0 1.5-5.415V6.5a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4v1.085c0 1.907.518 3.78 1.5 5.415a1.65 1.65 0 0 1-1.415 2.5zm1.915-11c-.267-.934-.6-1.6-1-2s-1.066-.733-2-1m-10.912 3c.209-.934.512-1.6.912-2s1.096-.733 2.088-1M13 17c-.667 1-1.5 1.5-2.5 1.5S8.667 18 8 17"/></svg>
+                            <div class="px-1 bg-teal-500 rounded-full text-center text-white text-sm absolute -top-3 -end-2">
+                                {
+                                count > 0 && (
+                                    <div className="text-center ">
+                                        <span className="text-red-500 font-xs">
+                                            {count} </span>
+                                    </div>
+                                )
+                            }
+                                <div class="absolute top-0 start-0 rounded-full -z-10 animate-ping bg-teal-200 w-full h-full"></div>
+                            </div>
 
-                    {/* <div className='hidden md:flex gap-6'>
-                    <i className="fa fa-user fa-2x p-2 "></i>
-                    <button className='px-7 py-2 rounded bg-[#32a8a2] text-white font-bold'>Login</button>
-                </div> */}
+                        </div>
+                        {
+                        showNotifications && (
+
+                            <div className="absolute top-20 right-10 p-2 bg-white shadow-md w-60 rounded-md">
+                                <ul className="list-none p-0 m-0">
+                                    {
+                                    receivedMessages.map((message, index) => (
+                                        <li key={index}
+                                            className="p-2 border-b border-gray-300 text-black">
+                                            {message} </li>
+                                    ))
+                                } </ul>
+
+
+                            </div>
+                        )
+                    } </div>
 
                     <div className="md:hidden"
                         onClick={

@@ -120,13 +120,16 @@ function Adminnavbar() {
         </div>
         <div className={toggle ? 'absolute z-50 p-4 bg-white w-full px-8 md:hidden' :'hidden'}>
             <ul>
-                <li className='p-4 hover:bg-gray-100' onClick={()=>navigate('/')}>HOME</li>
+            <Link to="/admin/dashboard"><li className='p-4 hover:bg-gray-100'>DASHBOARD</li></Link>
 
-                <li className='p-4 hover:bg-gray-100' onClick={()=>navigate('/course')}>COURSES</li>
-                <li className='p-4 hover:bg-gray-100'>BLOGS</li>
-                <li className='p-4 hover:bg-gray-100'>COMMUNITIES</li>
-                <li className='p-4 hover:bg-gray-100'onClick={()=>navigate('/profile')}>PROFILE</li>
-                <li className='p-4 hover:bg-gray-100'>ABOUT US</li>
+            <Link to="/admin/usermanagement"><li className='p-4 hover:bg-gray-100'>USERMANAGEMENT</li></Link>
+            <Link to="/admin/vendormanagement"><li className='p-4 hover:bg-gray-100'>VENDOR</li></Link>
+            <Link to="/admin/vendorrequest"><li className='p-4 hover:bg-gray-100'>VENDOR REQUESTS</li></Link>
+            <Link to="/admin/fullcourses"><li className='p-4 hover:bg-gray-100'>ALL COURSE</li></Link>
+            <Link to="/admin/pendingcouses"><li className='p-4 hover:bg-gray-100'>OENDING COURSE</li></Link>
+            <Link to="/admin/transactions"><li className='p-4 hover:bg-gray-100'>TRANSACTIONS</li></Link>
+
+
                 
                 <div className='flex flex-col my-4 gap-4'>
                 <button className='px-7 py-2 rounded bg-[#2d737a] text-white font-bold shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)]' onClick={()=>navigate('/signup')}>Login</button>

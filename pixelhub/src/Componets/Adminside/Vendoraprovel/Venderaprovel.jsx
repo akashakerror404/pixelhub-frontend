@@ -4,6 +4,7 @@ import ReactPaginate from 'react-paginate';
 import axios from '../../../axios';
 import Modal from 'react-modal';
 import { useNavigate } from 'react-router-dom';
+import { API_URL } from '../../Baseurl';
 
 Modal.setAppElement('#root');
 
@@ -120,7 +121,7 @@ function Venderaprovel() {
                 >
                   <th
                     scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap text-white"
+                    className="px-6 py-4 font-medium  whitespace-nowrap text-white"
                   >
                     {vendor.id}
                   </th>
@@ -129,10 +130,10 @@ function Venderaprovel() {
                   <td className="px-6 py-4">{vendor.phone}</td>
                   <td className="px-6 py-4">
                     <img
-                      src={`http://127.0.0.1:8000${vendor.id_proof}`}
+                      src={`${API_URL}${vendor.id_proof}`}
                       alt={`ID Proof for ${vendor.username}`}
                       className="max-h-12 cursor-pointer"
-                      onClick={() => openLightbox(`http://127.0.0.1:8000${vendor.id_proof}`)}
+                      onClick={() => openLightbox(`${API_URL}${vendor.id_proof}`)}
                     />
                   </td>
 

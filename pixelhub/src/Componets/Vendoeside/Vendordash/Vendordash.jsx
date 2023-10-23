@@ -6,16 +6,28 @@ import axios from '../../../axios'
 function Vendordash() {
     const {isAuthenticated, username, userId, role} = useSelector((state) => state.user);
     console.log(userId)
-    const [socket, setSocket] = useState(null);
-    const roomName = `${userId}_${"admin"}`;
-    console.log("room name", roomName)
     const [Dashdata, setDashdata] = useState({});
-    const [message, setMessage] = useState('');
-    const [messages, setMessages] = useState([]);
-    useEffect(() => {
-        // const newSocket = new WebSocket(`ws://127.0.0.1:8000/ws/note-chat/${roomName}/`);
-        // setSocket(newSocket);
+ 
 
+
+
+    const WEEK = ["/SUN", "/MON", "/TUE", "/WED", "/THU", "/FRI", "/SAT"];
+
+    // Moved the updateTime and zeroPadding functions inside the component
+    const updateTime = () => {
+        const now = new Date();
+        document.getElementById("time").innerText =
+            zeroPadding(now.getHours(), 2) + ":" +
+            zeroPadding(now.getMinutes(), 2) + ":" +
+            zeroPadding(now.getSeconds(), 2);
+        document.getElementById("date").innerText =
+            now.getFullYear() + "/" +
+            zeroPadding(now.getMonth() + 1, 2) + "/" +
+            zeroPadding(now.getDate(), 2) + " " +
+            WEEK[now.getDay()];
+    };
+    useEffect(() => {
+       
         axios.get(`/vendorstudentcount/${userId}/`).then((response) => {
             setDashdata(response.data);
             console.log(response.data)
@@ -23,44 +35,26 @@ function Vendordash() {
             console.error('Error fetching data:', error);
         });
 
-      
+        updateTime();
+        // Set up a timer to update the time
+        const timerId = setInterval(updateTime, 1000);
 
-        // return() => { 
-        //     if (socket) {
-        //         socket.close();
-        //     }
-        // };
+        // Clean up the timer when the component unmounts
+        return () => clearInterval(timerId);
+
     }, []);
-
-    // useEffect(() => {
-    //     if (socket) {
-    //         socket.onopen = () => {
-    //             console.log("WebSocket connection 54654654 opened");
-    //         };
-
-    //         socket.onmessage = (event) => {
-    //             console.log("messaage recived")
-    //             const data = JSON.parse(event.data);
-    //             console.log("messaage recived",data)
-    //             const message_get = data.message_content;
-               
-    //         };
-    //     }
-
-        
-    // }, [socket]);
+    const zeroPadding = (num, digit) => {
+        return String(num).padStart(digit, '0');
+    };
+   
 
     return (
         <>
             <Vendornav/>
-            {/* <div>
-        {messages.map((msg, index) => (
-          <div key={index}>{msg.message_content}</div>
-        ))}
-      </div> */}
+            
             <div className='w-full bg-[#1F2A40]'>
                 <div className='md:p-9 p-4  w-full bg-[#1F2A40]'>
-                    <div class="flex rounded-2xl ">
+                    <div class="md:flex rounded-2xl ">
                         <div class="md:w-3/4 w-full bg-[#141B2D] h-40 rounded-l-md">
                             <div class="text-white text-start md:md:pl-28 p pl-4 md:mt-9 mt-4 mb-2">
                                 <p className='md:text-3xl text-2xl pb-2'>Hello Teacher</p>
@@ -71,11 +65,13 @@ function Vendordash() {
                             </div>
                         </div>
 
-                        <div class="hidden md:flex w-1/4 bg-[#141B2D] h-40 md:pl-20 rounded-r-md">
-                            <div class="text-white text-center md:w-60 h-10 md:mt-14 mt-16 mb-2 rounded-full border border-white">
-                                <p className='md:text-2xl text-1xl'>september 18</p>
-                            </div>
+                        <div className=" md:flex md:w-1/4 bg-[#141B2D] md:h-40 h-20 items-center justify-center content-center rounded-r-md">
+                            <div className="text-white text-center md:w-60 h-14 items-center justify-center rounded-full border border-white">
+                              
+                                <p id="time" className='md:text-2xl text-1xl text-red-500'></p>
 
+                            <span id="date"></span>
+                            </div>
                         </div>
 
                     </div>

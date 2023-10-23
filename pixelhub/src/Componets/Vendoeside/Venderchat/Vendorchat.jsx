@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import Vendornav from '../Vendornavbar/Vendornav'
 import { useNavigate } from 'react-router';
 import Chatdetails from './Chatdetails';
+import { API_URL } from '../../Baseurl';
 
 function Vendorchat() {
     const [chattedUsers, setChattedUsers] = useState([]);
@@ -11,7 +12,7 @@ function Vendorchat() {
     const[selectedChat,setSelectedChat] = useState(null)
     const [socket, setSocket] = useState(null);
 
-    console.log("This is",selectedChat)
+    console.log("This is",chattedUsers)
 
 
     const navigate = useNavigate();
@@ -46,7 +47,8 @@ function Vendorchat() {
       <div className="container mx-auto mt-[-128px] ">
         <div className="py-6 w-full h-screen">
           <div className="flex   rounded shadow-lg h-full">
-            <div className="w-1/3  border flex flex-col">
+            
+            <div className="w-full  border flex flex-col">
               <div className="py-2 px-3 bg-[#e4f2ee] flex flex-row justify-between items-center">
                 <div className='py-2 flex justify-between w-full'>
                     <div>
@@ -63,7 +65,9 @@ function Vendorchat() {
                   {chattedUsers.map((user) => (
                 <div className="px-3 flex items-center bg-grey-light cursor-pointer">
                   <div>
-                    <img className="h-12 w-12 rounded-full" src="https://darrenjameseeley.files.wordpress.com/2014/09/expendables3.jpeg" alt="Chat User" />
+                  <img className="h-12 w-12 rounded-full" src={`${API_URL}${user.profileimage} `}alt="Chat User" />
+
+                    {/* <img className="h-12 w-12 rounded-full" src="https://darrenjameseeley.files.wordpress.com/2014/09/expendables3.jpeg" alt="Chat User" /> */}
                   </div>
                   <div className="ml-4 flex-1 border-b border-grey-lighter py-4">
                     <div key={user.id} className="flex items-bottom justify-between">
@@ -82,46 +86,38 @@ function Vendorchat() {
               </div>
             </div>
 
-            <div className="w-2/3 border flex flex-col">
-              <div className="py-2 px-3 bg-[#e4f2ee] flex flex-row justify-between items-center">
-                <div className="flex items-center">
-                  <div>
-                    <img className="w-10 h-10 rounded-full" src="https://darrenjameseeley.files.wordpress.com/2014/09/expendables3.jpeg" alt="User Profile" />
-                  </div>
-                  <div className="ml-4">
-                    <p className="text-grey-darkest">
-                      {selectedChat}
-                    </p>
-                    <p className="text-grey-darker text-xs mt-1">
-                      last seen 10:14 am
-                    </p>
-                  </div>
-                </div>
+            {selectedChat ? (
+  <div className="w-full border flex flex-col">
+    <div className="py-2 px-3 bg-[#e4f2ee] flex flex-row justify-between items-center">
+      <div className="flex items-center">
+        <div>
+          <img className="w-10 h-10 rounded-full" src="https://darrenjameseeley.files.wordpress.com/2014/09/expendables3.jpeg" alt="User Profile" />
+        </div>
+        <div className="ml-4">
+          <p className="text-grey-darkest">
+            {selectedChat}
+          </p>
+          <p className="text-grey-darker text-xs mt-1">
+            last seen 10:14 am
+          </p>
+        </div>
+      </div>
+    </div>
 
-               
-              </div>
-
-              <div className="flex-1 overflow-auto bg-[#dad3cc] p-4" >
-                <div className="py-1 ">
-                 
-
-                  <div className="flex justify-center ">
-                    <div className="rounded py-2 px-4 bg-[#FCF4CB]" >
-                      <p className="text-xs">
-                        Messages to this chat and calls are now secured with end-to-end encryption. 
-                      </p>
-                    </div>
-                  </div>
-
-
-
-                  {selectedChat && <Chatdetails id={selectedChat}/>}
-                  
-                </div>
-              </div>
-
-              
-            </div>
+    <div className="flex-1 overflow-auto bg-[#dad3cc] p-4">
+      <div className="py-1">
+        <div className="flex justify-center">
+          <div className="rounded py-2 px-4 bg-[#FCF4CB]">
+            <p className="text-xs">
+              Messages to this chat and calls are now secured with end-to-end encryption.
+            </p>
+          </div>
+        </div>
+        {selectedChat && <Chatdetails id={selectedChat} />}
+      </div>
+    </div>
+  </div>
+) : null}
           </div>
         </div>
       </div>
