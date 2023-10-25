@@ -39,7 +39,7 @@ function Coursemanage() {
       <div className='md:p-9 p-3 bg-[#1F2A40] h-screen'>
             <div class="flex ">
             <div class="w-full bg-[#1F2A40] h-12">
-            <p className='md:text-3xl text-2xl pl-20 mt-2 text-white '>On Going Classes</p>
+            <p className='md:text-3xl text-2xl md:pl-20 mt-2 text-white '>On Going Classes</p>
             </div>
             </div>
 

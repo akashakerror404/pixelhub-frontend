@@ -113,13 +113,12 @@ function Customenavbar() {
         </div>
         <div className={toggle ? 'absolute z-50 p-4 bg-white w-full px-8 md:hidden' :'hidden'}>
             <ul>
-                <li className='p-4 hover:bg-gray-100' onClick={()=>navigate('/')}>HOME</li>
+                <li className='p-4 hover:bg-gray-100'  onClick={()=>navigate('/')}>HOME</li>
 
-                <li className='p-4 hover:bg-gray-100' onClick={()=>navigate('/course')}>COURSES</li>
-                <li className='p-4 hover:bg-gray-100'>BLOGS</li>
-                <li className='p-4 hover:bg-gray-100'>COMMUNITIES</li>
+                <li className='p-4 hover:bg-gray-100'onClick={()=>navigate('/course')} >COURSES</li>
+                <li className='p-4 hover:bg-gray-100'onClick={()=>navigate('/about')}>ABOUT</li>
+                <li className='p-4 hover:bg-gray-100'onClick={()=>navigate('/blogs')}>BLOGS</li>
                 <li className='p-4 hover:bg-gray-100'onClick={()=>navigate('/profile')}>PROFILE</li>
-                <li className='p-4 hover:bg-gray-100'>ABOUT US</li>
                 
                 <div className='flex flex-col my-4 gap-4'>
                 <button className='px-7 py-2 rounded bg-[#2d737a] text-white font-bold shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)]' onClick={()=>navigate('/signup')}>Login</button>

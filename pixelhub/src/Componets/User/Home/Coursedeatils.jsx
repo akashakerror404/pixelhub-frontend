@@ -18,6 +18,9 @@ function Coursedeatils() {
     console.log(courseId)
     const [courseDetails, setCourseDetails] = useState({});
     const [showFullContent, setShowFullContent] = useState(false);
+    const [videoCount, setVideoCount] = useState(0);
+    console.log("videocount",videoCount)
+
     const location =useLocation();
     const discountamount = courseDetails.price / courseDetails.discount_percentage;
     const totalamount = Math.round(courseDetails.price - discountamount);
@@ -46,6 +49,8 @@ function Coursedeatils() {
         axios.get(`/courses/${courseId}/`)  // Replace 'courseSlug' with the actual slug of the course
           .then((response) => {
             setCourseDetails(response.data);
+            setVideoCount(response.data.video_count); // Set the video count in state
+
             console.log(response.data)
             // Setloading(false)
           })
@@ -93,7 +98,7 @@ function Coursedeatils() {
 
 
             <div class="md:w-1/4 w-full b md:p-6 p-3 ">
-                    <div class="max-w-sm bg-white shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                    <div class="max-w-sm bg-white shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] border border-gray-200 rounded-lg  dark:bg-gray-800 dark:border-gray-700">
                         <a href="#">
                             <img class="rounded-t-lg" src={`${API_URL}${courseDetails.coverphoto}`} alt=""/>
                         </a>
@@ -105,7 +110,7 @@ function Coursedeatils() {
                             <p class="mb-2 font-normal text-gray-700 dark:text-gray-400">Discount :{courseDetails.discount_percentage} %</p>
 
                             <p class="mb-2 text-sm text-gray-700 dark:text-gray-400">(Include GST)</p>
-                            <p class="mb-2 text-sm text-gray-700 dark:text-gray-400"> Lectures : <span className='text-red-500'> 4 Lessons</span></p>
+                            <p class="mb-2 text-sm text-gray-700 dark:text-gray-400"> Lectures : <span className='text-red-500'> {videoCount} Lessons</span></p>
                             <p class="mb-2 text-sm text-gray-700 dark:text-gray-400">  <span className='text-red-500'>Life time access</span></p>
 
                            

@@ -169,11 +169,12 @@ function Addcourse() {
                 </div>
               </div>
 
-              <div className="sm:col-span-3">
+              <div className="sm:col-span-3 ">
                 <label htmlFor="category" className="block text-sm font-medium leading-6 text-white">
                   Category
                 </label>
-                <div className="mt-2">
+
+                <div className="mt-2 flex">
                 <select
               id="category"
               name="category"
@@ -182,15 +183,23 @@ function Addcourse() {
               value={courseData.id}
             >
               <option value="">Select a category</option>
+             
+
+              
               {categories.map((category) => (
                 <option key={category.id} value={category.id}>
                   {category.categoryname}
                 </option>
+                
               ))}
             </select>
+            <option className='pl-4 text-red-500'  onClick={() => navigate("/vendor/addcategory")}>Add category +</option>
 
                 </div>
+                
               </div>
+
+              
 
               <div className="sm:col-span-2 sm:col-start-1">
                 <label htmlFor="price" className="block text-sm font-medium leading-6 text-white">

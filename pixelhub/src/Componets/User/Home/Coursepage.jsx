@@ -4,21 +4,28 @@ import Coursecardmain from './Coursecardmain';
 import Coursefilter from './Coursefilter';
 import Search from './Search';
 import axios from '../../../axios';
+import Skeleton from 'react-loading-skeleton'; // Import Skeleton
+import {BiSolidOffer} from 'react-icons/bi';
 
 function Coursepage() {
   const [courses, setCourses] = useState([]);
   const [filteredCourses, setFilteredCourses] = useState([]);
   const [searchInput, setSearchInput] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [loading, setLoading] = useState(true); // Add loading state
 
   useEffect(() => {
     axios.get('/courses_all')
       .then((response) => {
         setCourses(response.data);
         setFilteredCourses(response.data);
+        setLoading(false); // Set loading to false when courses are loaded
+
       })
       .catch((error) => {
         console.error('Error fetching course data:', error);
+        setLoading(false); // Set loading to false in case of an error
+
       });
   }, []);
 
@@ -51,14 +58,45 @@ function Coursepage() {
             <Search value={searchInput} onChange={(e) => setSearchInput(e.target.value)} />
           </div>
         </div>
-
         <div className='md:ml-24'>
-          <div className='md:flex flex-wrap bg-[#f2f5eb] justify-start '>
-            {filteredCourses.map((course) => (
-              <Coursecardmain key={course.id} course={course} className='md:w-1/4' />
-            ))}
-          </div>
+  <div className='md:flex flex-wrap bg-[#f2f5eb] justify-start '>
+    {loading ? (
+      // Display skeleton while loading
+      Array(4).fill().map((_, index) => (
+        <div key={index} className='md:w-1/4'>
+        <div className='bg-white drop-shadow-sm rounded md:mr-4 my-4 transition-transform transform hover:scale-105 hover:shadow-lg hover:bg-gray-100 md:w-96 md:h-4/4'>
+  <div className="p-4">
+    <div className="h-24">
+      <Skeleton width={300} height={150} />
+    </div>
+    <h1 className='p-2 truncate font-semibold text-lg'>
+      <Skeleton width={150} height={20} style={{ borderRadius: '4px', backgroundColor: 'rgba(0, 0, 0, 0.1)' }} />
+    </h1>
+    <div className='p-4 border border-b grid grid-flow-col justify-between'>
+      <div className='flex items-center'>
+        <Skeleton width={40} height={20} style={{ borderRadius: '4px', backgroundColor: 'rgba(0, 0, 0, 0.1)' }} />
+      </div>
+      <div className="flex items-center justify-between bg-[#ddfcef] px-2">
+        <BiSolidOffer size={20} style={{ color: '#1A906B' }} />
+        <span className='text-sm font-sans p-2'>
+          <Skeleton width={60} height={20} style={{ borderRadius: '4px', backgroundColor: 'rgba(0, 0, 0, 0.1)' }} />
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
         </div>
+      ))
+    ) : (
+      filteredCourses.map((course) => (
+        <Coursecardmain key={course.id} course={course} className='md:w-1/4' />
+      ))
+    )}
+  </div>
+</div>
+
+        
       </div>
     </>
   );

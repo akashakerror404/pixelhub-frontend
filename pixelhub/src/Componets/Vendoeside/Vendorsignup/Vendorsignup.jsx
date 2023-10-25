@@ -72,17 +72,17 @@ const navigate = useNavigate();
     <div className="h-screen flex flex-col">
       <Customenavbar />
       <div class=" md:flex  md:h-[770px]">
-            <div class="hidden md:flex md:w-1/2 bg-white ">
+            <div class="flex md:w-1/2 bg-white ">
             <img
-                  className="h-[770px] w-full"
+                  className="md:h-[770px] md:mt- mt-20 w-full"
                   src={logo}
                   alt="Your Company"
                 />
 
             </div>
-            <div class="md:w-1/2 bg-white p-11 ">
+            <div class="md:w-1/2 bg-white md:p-11 justify-center">
             <div className="md:mt-16  md:p-6 p-4 flex-grow bg-white rounded-md shadow-md">
-        <h2 className="text-2xl font-semibold  md:pl-64 p-14">Vendor Signup</h2>
+        <h2 className="text-xl font-semibold  md:pl-64 pl-24 p-2">Vendor Signup</h2>
         {error && <p className="text-red-500 mb-4">{error}</p>}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>

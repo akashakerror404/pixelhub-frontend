@@ -209,23 +209,25 @@ function Vendornav() { // const { isAuthenticated, username, role } = useSelecto
                         } </span>
                         <span class="relative invisible">Button Text</span>
                     </button>
+                        <div className='flex md:hidden gap-4'>
 
                     <div className='md:hidden '>
-                        <div class="relative"
+                        <div class="relative  "
                             onClick={
                                 () => setShowNotifications(!showNotifications)
                         }>
-                            <svg class="w-8 h-8 text-teal-600 animate-wiggle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M15.585 15.5H5.415A1.65 1.65 0 0 1 4 13a10.526 10.526 0 0 0 1.5-5.415V6.5a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4v1.085c0 1.907.518 3.78 1.5 5.415a1.65 1.65 0 0 1-1.415 2.5zm1.915-11c-.267-.934-.6-1.6-1-2s-1.066-.733-2-1m-10.912 3c.209-.934.512-1.6.912-2s1.096-.733 2.088-1M13 17c-.667 1-1.5 1.5-2.5 1.5S8.667 18 8 17"/></svg>
+                            <svg class="w-8 h-8 text-teal-600 animate-wiggle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21">
+                                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M15.585 15.5H5.415A1.65 1.65 0 0 1 4 13a10.526 10.526 0 0 0 1.5-5.415V6.5a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4v1.085c0 1.907.518 3.78 1.5 5.415a1.65 1.65 0 0 1-1.415 2.5zm1.915-11c-.267-.934-.6-1.6-1-2s-1.066-.733-2-1m-10.912 3c.209-.934.512-1.6.912-2s1.096-.733 2.088-1M13 17c-.667 1-1.5 1.5-2.5 1.5S8.667 18 8 17"/></svg>
                             <div class="px-1 bg-teal-500 rounded-full text-center text-white text-sm absolute -top-3 -end-2">
                                 {
                                 count > 0 && (
                                     <div className="text-center ">
-                                        <span className="text-red-500 font-xs">
+                                        <span className="text-white-500 font-xs">
                                             {count} </span>
                                     </div>
                                 )
                             }
-                                <div class="absolute top-0 start-0 rounded-full -z-10 animate-ping bg-teal-200 w-full h-full"></div>
+                                <div class="absolute top-0 start-0 rounded-full -z-10 animate-ping bg-red-600 w-full h-full"></div>
                             </div>
 
                         </div>
@@ -254,28 +256,22 @@ function Vendornav() { // const { isAuthenticated, username, role } = useSelecto
                         {
                         toggle ? <i className="fa fa-times"></i> : <i className="fa fa-bars text-white"></i>
                     } </div>
+                        </div>
+
 
                 </div>
                 <div className={
-                    toggle ? 'absolute z-50 p-4 bg-white w-full px-8 md:hidden' : 'hidden'
+                    toggle ? 'absolute z-50 p-4 bg-[#1F2A40] w-full px-8 md:hidden' : 'hidden'
                 }>
                     <ul>
-                        <li className='p-4 hover:bg-gray-100'
-                            onClick={
-                                () => navigate('/')
-                        }>HOME</li>
+                    <Link to="/vendor/dashboard"> <li className='p-4 text-white hover:bg-gray-100 '>HOME</li>  </Link>
 
-                        <li className='p-4 hover:bg-gray-100'
-                            onClick={
-                                () => navigate('/course')
-                        }>COURSES</li>
-                        <li className='p-4 hover:bg-gray-100'>BLOGS</li>
-                        <li className='p-4 hover:bg-gray-100'>COMMUNITIES</li>
-                        <li className='p-4 hover:bg-gray-100'
-                            onClick={
-                                () => navigate('/profile')
-                        }>PROFILE</li>
-                        <li className='p-4 hover:bg-gray-100'>ABOUT US</li>
+                    <Link to="/vendor/coursemanage"> <li className='p-4 text-white hover:bg-gray-100'>UPLOAD CLASS</li></Link>
+
+                    <Link to="/vendor/waitinglist">  <li className='p-4 text-white hover:bg-gray-100'> WAITING LIST</li></Link>
+                    <Link to="/vendor/runninglist"><li className='p-4 text-white hover:bg-gray-100'>RUNNING CLASS</li></Link>
+                    <Link to="/vendor/chatbox">   <li className='p-4  text-white hover:bg-gray-100'> CHAT BOX</li></Link>
+                    <Link to="/vendor/payments"> <li className='p-4  text-white hover:bg-gray-100'>PAYMENTS</li></Link>
 
                         <div className='flex flex-col my-4 gap-4'>
                             <button className='px-7 py-2 rounded bg-[#2d737a] text-white font-bold shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)]'

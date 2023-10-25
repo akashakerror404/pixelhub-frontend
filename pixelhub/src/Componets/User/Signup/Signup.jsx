@@ -52,7 +52,7 @@ function Signup() {
   
     const handleSubmit = async () => {
       if (!passwordStrength.hasUppercase || !passwordStrength.hasDigit) {
-        toast.error('Password must contain at least one uppercase letter and one digit.');
+        toast.error('Password Must contain at least one uppercase letter and one digit.');
         return;
       }
       if (password !== confirmPassword) {
@@ -182,10 +182,10 @@ useEffect(() => {
                     onChange={handlePasswordChange}
                   />
                   {!passwordStrength.hasUppercase && password.length > 0 && (
-                    <p className="text-red-500 text-sm">Password must contain at least one uppercase letter.</p>
+                    <p className="text-red-500 text-xs">Password must contain at least one uppercase letter.</p>
                   )}
                   {!passwordStrength.hasDigit && password.length > 0 && (
-                    <p className="text-red-500 text-sm">Password must contain at least one digit.</p>
+                    <p className="text-red-500 text-xs">Password must contain at least one digit.</p>
                   )}
                     <input
                     className="mb-4 w-full border border-gray-300 rounded-full px-3 py-2 outline-none focus:border-blue-500 text-lg"

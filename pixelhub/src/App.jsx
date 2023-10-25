@@ -8,13 +8,13 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import UserRoutes from './Routes/UserRoutes'
 import AdminRoutes from './Routes/AdminRoutes';
 import VendorRoute from './Routes/VendorRoute';
+import 'react-loading-skeleton/dist/skeleton.css'
 
 
 
 function App() {
   return (
     <>
-      {/* <Customenavbar /> */}
     
       <Router>
         <div className="App">

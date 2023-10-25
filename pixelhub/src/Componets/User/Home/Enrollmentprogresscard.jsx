@@ -26,7 +26,7 @@ function Enrollmentprogresscard({ course }) {
 
 
   return (
-        <div className="bg-white md:h-1/2 p-6 mb-4 w-1/4 ">
+        <div className="bg-white md:h-1/2 p-6 mb-4 md:w-1/4 ">
           <h1 className="p-2 truncate font-semi">{course.coursename}</h1>
           <img
             src={`${API_URL}${course.coverphoto}`}

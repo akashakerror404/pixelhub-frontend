@@ -122,11 +122,11 @@ function Signin() {
     <Customenavbar/>
     <ToastContainer position="top-center" autoClose={5000} />
 
-    <section className=" w-full bg-neutral-200 dark:bg-neutral-700">
-  <div className="  p-7 pt-24 ">
+    <section className=" w-full h-screen bg-neutral-200 dark:bg-neutral-700">
+  <div className="  md:p-7 md:pt-24 ">
     <div className="g-6 flex h-full flex-wrap items-center justify-center text-neutral-800 dark:text-neutral-200">
       <div className="w-full">
-        <div className="block rounded-lg bg-white shadow-lg dark:bg-neutral-800">
+        <div className="block rounded-lg bg-white  dark:bg-neutral-800">
           <div className="g-0 lg:flex lg:flex-wrap">
            
             <div className="flex items-center justify-center rounded-b-lg lg:w-6/12 lg:rounded-r-lg lg:rounded-bl-none bg-white ">
@@ -179,18 +179,15 @@ function Signin() {
                   
               <button class="w-full h-12 px-6 text-white transition-colors duration-150 bg-blue-700 rounded-lg focus:shadow-outline hover:text-white hover:bg-blue-700" onClick={handleSubmit}>Signin</button>
 
-                    {/* <button
-                    className="bg-blue-500 text-white px-4 py-2 rounded-lg text-lg"
-                    onClick={handleSubmit}
-                    >
-                    Sign Up
-                    </button> */}
+              <span className='text-gray-700 mt-3 hover:text-red-500' onClick={()=>navigate('/forgotpassword')}>forgot password ?</span>
+
                     <p className="text-gray-700 mt-3 text-center">
                     Don't have an account?{' '}
                     <a href="/signup" className="text-blue-500">
                         Sign Up
                     </a>
                     </p>
+                    
                     <hr className="my-4" />
                     {/* Add your Google sign-in button or content here */}
                 </div>

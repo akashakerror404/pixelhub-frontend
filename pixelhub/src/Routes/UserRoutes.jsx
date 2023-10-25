@@ -16,6 +16,8 @@ import Blogdetailpage from '../Componets/User/Blogs/Blogdetailpage';
 import Createblog from '../Componets/User/Blogs/Createblog';
 import RequriedAuth from '../Autharization/RequriedAuth';
 import Paymentsucess from '../Componets/User/Home/Paymentsucess';
+import Forgotpassword from '../Componets/User/Home/Forgotpassword';
+import Newpasswrod from '../Componets/User/Home/Newpasswrod';
 
 
 
@@ -24,12 +26,16 @@ const UserRoutes = () => {
     <div>
       <Routes>
                 <Route exact path="/" element={<Home />} />
+                <Route exact path="/forgotpassword" element={<Forgotpassword />} />
+
                 <Route exact path="/signup" element={<Signup />} />
                 <Route exact path="/signin" element={<Signin />} />
                 <Route exact path="/otpconfirmation" element={<Otp/>} />
                 <Route exact path="/paymentsucess" element={<Paymentsucess />} />
+                <Route exact path="/resetpassword/:userid" element={<Newpasswrod />} />
 
 
+                
 
                 <Route exact path="/course" element={<Coursepage />} />
                 <Route exact path="/coursedetail/:courseId" element={<Coursedeatils />} />
@@ -38,6 +44,8 @@ const UserRoutes = () => {
                 <Route exact path="/about" element={<About />} />
                 <Route exact path="/blogs" element={<Blogpage />} />
                 <Route path="/blogdetails/:id" element={<Blogdetailpage />} />
+
+                
                 <Route element={<RequriedAuth />}> 
                 <Route exact path="/enrollments" element={<Enrollments />} />
                 <Route exact path="/profile" element={<Userprofile />} />

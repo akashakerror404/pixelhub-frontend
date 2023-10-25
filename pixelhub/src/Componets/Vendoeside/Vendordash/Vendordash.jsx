@@ -2,11 +2,13 @@ import Vendornav from '../Vendornavbar/Vendornav'
 import {useSelector, useDispatch} from 'react-redux';
 import React, {useState, useEffect} from 'react';
 import axios from '../../../axios'
+import { MdOutlineHotelClass } from 'react-icons/md';
 
 function Vendordash() {
     const {isAuthenticated, username, userId, role} = useSelector((state) => state.user);
     console.log(userId)
     const [Dashdata, setDashdata] = useState({});
+    console.log(Dashdata)
  
 
 
@@ -92,8 +94,10 @@ function Vendordash() {
                         }</p>
                     </div>
                     <div className="md:w-1/4 bg-[#141B2D] h-48 flex flex-col justify-center items-center rounded-md md:mb-0 mb-2">
-                        <i className="fa fa-user fa-2x text-white" aria-hidden="true"></i>
-                        <p className="text-white">Course completed 3</p>
+
+                        {/* <i className="fa fa-user fa-2x text-white" aria-hidden="true"></i> */}
+                        <MdOutlineHotelClass  size={30} color="white"/>
+                        <p className="text-white">Course Pending {Dashdata.pendingcount}</p>
                     </div>
                     <div className="md:w-1/4 bg-[#141B2D] h-48 flex flex-col justify-center items-center rounded-md md:mb-0 mb-2">
                         <i className="fa fa-user fa-2x text-white" aria-hidden="true"></i>
@@ -129,49 +133,22 @@ function Vendordash() {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="bg-[#141B2D] border-b dark:bg-gray-800 dark:border-gray-700">
-                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap text-white">
-                                        Arun payyadimethal
-                                    </th>
-                                    <td class="px-6 py-4">
-                                        Photoshop
-                                    </td>
-                                    {/* <td class="px-6 py-4">
-                                        Laptop
-                                    </td> */}
-                                    <td class="px-6 py-4">
-                                        $2999
-                                    </td>
-                                </tr>
-                                <tr class="bg-[#141B2D] border-b dark:bg-gray-800 dark:border-gray-700">
-                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap text-white">
-                                        Rahulravi
-                                    </th>
-                                    <td class="px-6 py-4">
-                                        photography
-                                    </td>
-                                    {/* <td class="px-6 py-4">
-                                        Laptop PC
-                                    </td> */}
-                                    <td class="px-6 py-4">
-                                        $1999
-                                    </td>
-                                </tr>
-                                <tr class="bg-[#141B2D] dark:bg-gray-800">
-                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap text-white">
-                                        Juvin
-                                    </th>
-                                    <td class="px-6 py-4">
-                                        Videography
-                                    </td>
-                                    {/* <td class="px-6 py-4">
-                                        Accessories
-                                    </td> */}
-                                    <td class="px-6 py-4">
-                                        $99
-                                    </td>
-                                </tr>
-                            </tbody>
+                        {Dashdata.transaction_data && Dashdata.transaction_data.map((transaction, index) => (
+                            <tr key={index} className="bg-[#141B2D] border-b dark:bg-gray-800 dark:border-gray-700">
+                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap text-white">
+                                {transaction.user_name}
+                            </th>
+                            <td className="px-6 py-4">
+                                {transaction.course}
+                            </td>
+                            <td className="px-6 py-4">
+                                ₹{transaction.price}
+                            </td>
+                            </tr>
+                        ))}
+                        </tbody>
+
+
                         </table>
                     </div>
                 </div>

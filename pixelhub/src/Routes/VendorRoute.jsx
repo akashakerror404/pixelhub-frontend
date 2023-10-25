@@ -14,6 +14,7 @@ import Vendorchat from '../Componets/Vendoeside/Venderchat/Vendorchat';
 import Payments from '../Componets/Vendoeside/Transactions/Payments';
 import Vendordash from '../Componets/Vendoeside/Vendordash/Vendordash';
 import Vendorauth from '../Autharization/Vendorauth';
+import Addcategory from '../Componets/Vendoeside/Coursepages/Addcategory';
 
 function VendorRoute() {
   return (
@@ -40,6 +41,8 @@ function VendorRoute() {
         <Route  path="/chatbox" element={<Vendorchat />} />
         <Route  path="/payments" element={<Payments />} />
         <Route  path="/dashboard" element={<Vendordash/>} />
+        <Route  path="/addcategory" element={<Addcategory/>} />
+
                
 
 
