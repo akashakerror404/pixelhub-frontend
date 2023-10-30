@@ -183,7 +183,7 @@ function Signin() {
 
                     <p className="text-gray-700 mt-3 text-center">
                     Don't have an account?{' '}
-                    <a href="/signup" className="text-blue-500">
+                    <a onClick={()=>navigate('/signup')}  className="text-blue-500">
                         Sign Up
                     </a>
                     </p>

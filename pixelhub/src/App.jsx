@@ -9,6 +9,7 @@ import UserRoutes from './Routes/UserRoutes'
 import AdminRoutes from './Routes/AdminRoutes';
 import VendorRoute from './Routes/VendorRoute';
 import 'react-loading-skeleton/dist/skeleton.css'
+import Error from './Componets/Error/Error';
 
 
 
@@ -23,6 +24,7 @@ function App() {
             <Route path="/*" element={<UserRoutes/>} />
             <Route path="/admin/*" element={<AdminRoutes />} />
             <Route path="/vendor/*" element={<VendorRoute />} />
+            <Route path="*" element={<Error />} />
 
           </Routes>
         </div>

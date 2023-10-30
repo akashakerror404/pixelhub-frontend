@@ -18,6 +18,7 @@ import RequriedAuth from '../Autharization/RequriedAuth';
 import Paymentsucess from '../Componets/User/Home/Paymentsucess';
 import Forgotpassword from '../Componets/User/Home/Forgotpassword';
 import Newpasswrod from '../Componets/User/Home/Newpasswrod';
+// import Error from '../Componets/Error/Error';
 
 
 
@@ -58,6 +59,8 @@ const UserRoutes = () => {
                 
                 
                  </Route>
+                 {/* <Route Component={Error}/> */}
+
 
                 
             
