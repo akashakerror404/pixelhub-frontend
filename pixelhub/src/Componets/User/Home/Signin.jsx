@@ -68,7 +68,7 @@ function Signin() {
       dispatch(setUserData({username,role,userId}))
 
 
-      axios.defaults.headers.common['Authorization'] = `Bearer ${data['access']}`;
+      // axios.defaults.headers.common['Authorization'] = `Bearer ${data['access']}`;
       if (role === 300) {
         // Navigate to the 'course' page or any other destination for vendors
         navigate('/vendor/dashboard'); // Adjust the URL as needed

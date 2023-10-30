@@ -115,7 +115,8 @@ function Vendormanagement() {
     <div className="bg-[#1F2A40] ">
       <Adminnavbar />
       <ToastContainer position="top-center" autoClose={5000} />
-      <div className="bg-[#1F2A40] ">
+      <div className='h-screen'>
+      <div className="bg-[#1F2A40]  ">
         <div className="flex mb-4 md:p-8 p-3">
           <div className="w-full bg-[#1F2A40] h-24 rounded-md">
             <p className="md:text-3xl text-2xl pl-5 mt-2 text-white mb-4">Vendors</p>
@@ -223,7 +224,7 @@ function Vendormanagement() {
           </table>
         </div>
       </div>
-      <div className="mt-8">
+      <div className="mt-80">
         <div className="flex justify-center mt-">
           <ReactPaginate
             breakLabel="..."
@@ -241,6 +242,7 @@ function Vendormanagement() {
           />
         </div>
       </div>
+    </div>
     </div>
   );
 }

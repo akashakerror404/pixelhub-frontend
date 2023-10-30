@@ -6,6 +6,8 @@ import logo from '../../../static/logopixel.png';
 import { useNavigate,Link} from 'react-router-dom';
 import { useSelector ,useDispatch } from 'react-redux';
 import { clearUserData } from '../../../Store/Actions/UserAction';
+import axios from '../../../axios'
+
 function Adminnavbar() {
   
   
@@ -15,13 +17,38 @@ function Adminnavbar() {
     const dispatch = useDispatch();
 
     const navigate=useNavigate();
-    const handleLogout = () => {
+    // const handleLogout = () => {
     
-      dispatch(clearUserData());
-      console.log("logout");
+    //   dispatch(clearUserData());
+    //   console.log("logout");
     
-      navigate('/admin/adminlogin');
-    }
+    //   navigate('/admin/adminlogin');
+    // }
+
+
+
+
+    const handleLogout = async () => {
+      try {
+        const response = await axios.post(
+          '/logout',
+          { refresh_token: localStorage.getItem("refresh_token") },
+          { headers: { "Content-Type": "application/json" } }
+        );
+        if (response.status === 205) {
+          // Check for the appropriate status code
+  
+          dispatch(clearUserData());
+          axios.defaults.headers.common["Authorization"] = null;
+          navigate('/admin/adminlogin');
+          console.log("success");
+        } else {
+          console.log("Logout request was not successful");
+        }
+      } catch (e) {
+        console.log("logout not working", e);
+      }
+    };
   return (
     <>
     <div className='w-full h-[80px] bg-[#141B2D] border-b shadow fixed z-50'>

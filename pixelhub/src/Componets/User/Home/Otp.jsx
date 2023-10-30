@@ -43,15 +43,23 @@ const queryParams = new URLSearchParams(location.search);
   return (
     <div>
         <Customenavbar/>
-    <div className="w-96 h-72 bg-red-500   rounded-2xl mx-auto mt-60">
-    <div className=" animate-pulse w-96 h-60 rounded-2xl bg-blue-500 flex-row items-center h-full justify-center space-x-5">
-        <p className='text-4xl pt-12 pl-11 text-white font-mono'>Congratulations! </p>
+        <div className='md:p-0 p-0'>
+    <div className=" h-72 bg-red-500 md:w-[400px] w-[340px]   rounded-2xl mx-auto md:mt-60 mt-32 ">
+    <div className=" animate-pulse w-full h-60 rounded-2xl bg-blue-500 flex-row items-center h-full justify-center space-x-5">
+        <p className='md:text-4xl text-3xl pt-12 md:pl-11 pl-10 text-white font-mono'>Congratulations! </p>
 
-        <p className='pt-6 pl-3 mb-4 text-white'> 
-      {username} your registration has been completed. We have sent a verification email to your {email}. 
+        <p className='pt-6 pl-3 mb-4 text-white md:text-base text-sm'> 
+      {username} your registration has been completed. We have sent a verification email to your {email}
       Please click the link in the email to verify your account.
     </p>        
-<div className='pl-28'>
+
+
+
+
+      
+      
+    </div>
+    <div className= 'md:pl-36 pl-28 mt-5'>
   <Link to="/"> 
     <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
       <span className="sr-only">Icon description</span>
@@ -62,13 +70,8 @@ const queryParams = new URLSearchParams(location.search);
     </button>
   </Link>
 </div>
-
-
-
-      
-      
-    </div>
    
+  </div>
   </div>
   </div>
   );

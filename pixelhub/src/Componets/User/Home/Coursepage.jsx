@@ -6,7 +6,8 @@ import Search from './Search';
 import axios from '../../../axios';
 import Skeleton from 'react-loading-skeleton'; // Import Skeleton
 import {BiSolidOffer} from 'react-icons/bi';
-
+import Lottie from 'lottie-react'
+import loadingani from '../../../Animations/loding.json';
 function Coursepage() {
   const [courses, setCourses] = useState([]);
   const [filteredCourses, setFilteredCourses] = useState([]);
@@ -64,16 +65,19 @@ function Coursepage() {
       // Display skeleton while loading
       Array(4).fill().map((_, index) => (
         <div key={index} className='md:w-1/4'>
-        <div className='bg-white drop-shadow-sm rounded md:mr-4 my-4 transition-transform transform hover:scale-105 hover:shadow-lg hover:bg-gray-100 md:w-96 md:h-4/4'>
+        <div className=' drop-shadow-sm rounded md:mr-4 my-4 transition-transform transform bg-white hover:scale-105 hover:shadow-lg hover:bg-gray-100 md:w-96 md:h-4/4 '>
   <div className="p-4">
+  <Lottie animationData={loadingani} className="w-1/6 " size={40}/>
+
     <div className="h-24">
       <Skeleton width={300} height={150} />
+
     </div>
     <h1 className='p-2 truncate font-semibold text-lg'>
       <Skeleton width={150} height={20} style={{ borderRadius: '4px', backgroundColor: 'rgba(0, 0, 0, 0.1)' }} />
     </h1>
-    <div className='p-4 border border-b grid grid-flow-col justify-between'>
-      <div className='flex items-center'>
+    <div className='p-4 border border-b flex justify-between  w-[300px]'>
+      <div className='flex items-center '>
         <Skeleton width={40} height={20} style={{ borderRadius: '4px', backgroundColor: 'rgba(0, 0, 0, 0.1)' }} />
       </div>
       <div className="flex items-center justify-between bg-[#ddfcef] px-2">
@@ -83,10 +87,17 @@ function Coursepage() {
         </span>
       </div>
     </div>
+    <div>
+    <h1 className='p-2 truncate font-semibold text-lg'>
+      <Skeleton width={280} height={20} style={{ borderRadius: '4px', backgroundColor: 'rgba(0, 0, 0, 0.1)' }} />
+    </h1>
+    </div>
   </div>
 </div>
 
-        </div>
+        </div> 
+
+        
       ))
     ) : (
       filteredCourses.map((course) => (

@@ -71,6 +71,7 @@ function Adminlogin() {
         // Initialize the access & refresh token in local storage.
         localStorage.clear();
         localStorage.setItem('access_token', data.access);
+        const access =  data.access
   
         localStorage.setItem('refresh_token', data.refresh);
         localStorage.setItem('userid',data.id);
@@ -78,7 +79,7 @@ function Adminlogin() {
         dispatch(setUserData({username,role,userId}))
   
   
-        axios.defaults.headers.common['Authorization'] = `Bearer ${data['access']}`;
+        // axios.defaults.headers.common['Authorization'] = `Bearer ${access}`;
         if (role === 400) {
           // Navigate to the 'course' page or any other destination for vendors
           navigate('/admin/dashboard'); // Adjust the URL as needed

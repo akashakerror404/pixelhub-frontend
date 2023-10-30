@@ -5,6 +5,7 @@ import logo from '../../../static/logopixel.png';
 import { useNavigate } from 'react-router-dom';
 import { useSelector ,useDispatch } from 'react-redux';
 import { clearUserData } from '../../../Store/Actions/UserAction';
+import axios from '../../../axios'
 
 function Customenavbar() {
     const { isAuthenticated, username, role } = useSelector((state) => state.user);
@@ -13,12 +14,31 @@ function Customenavbar() {
     const dispatch = useDispatch();
 
     const navigate=useNavigate();
-    const handleLogout=  () => {
-        dispatch(clearUserData());
-        navigate('/signin');
-        console.log("logout")
-    }
 
+
+
+
+    const handleLogout = async () => {
+      try {
+        const response = await axios.post(
+          '/logout',
+          { refresh_token: localStorage.getItem("refresh_token") },
+          { headers: { "Content-Type": "application/json" } }
+        );
+        if (response.status === 205) {
+          // Check for the appropriate status code
+  
+          dispatch(clearUserData());
+          axios.defaults.headers.common["Authorization"] = null;
+          navigate('/signin');
+          console.log("success");
+        } else {
+          console.log("Logout request was not successful");
+        }
+      } catch (e) {
+        console.log("logout not working", e);
+      }
+    };
   
   return (
     <>
@@ -53,10 +73,12 @@ function Customenavbar() {
                     BLOGS
                     <div className='absolute inset-x-0 bottom-0 h-1  bg-[#00A9B7] transform scale-x-0 origin-left transition-transform group-hover:scale-x-100'></div>
                     </li>
+                    {username&&
                     <li className='group relative px-3 py-2 text-sm font-medium' onClick={()=>navigate('/profile')}>
                     PROFILE
                     <div className='absolute inset-x-0 bottom-0 h-1  bg-[#00A9B7] transform scale-x-0 origin-left transition-transform group-hover:scale-x-100'></div>
-                    </li>
+                    </li>}
+                    
                 </ul>
                 </div>
        
@@ -118,11 +140,23 @@ function Customenavbar() {
                 <li className='p-4 hover:bg-gray-100'onClick={()=>navigate('/course')} >COURSES</li>
                 <li className='p-4 hover:bg-gray-100'onClick={()=>navigate('/about')}>ABOUT</li>
                 <li className='p-4 hover:bg-gray-100'onClick={()=>navigate('/blogs')}>BLOGS</li>
-                <li className='p-4 hover:bg-gray-100'onClick={()=>navigate('/profile')}>PROFILE</li>
+                {username&&<li className='p-4 hover:bg-gray-100'onClick={()=>navigate('/profile')}>PROFILE</li>}
                 
                 <div className='flex flex-col my-4 gap-4'>
-                <button className='px-7 py-2 rounded bg-[#2d737a] text-white font-bold shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)]' onClick={()=>navigate('/signup')}>Login</button>
-                </div>
+                <button
+                  className='px-7 py-2 rounded bg-[#2d737a] text-white font-bold shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)]'
+                  onClick={() => {
+                    if (username) {
+                      handleLogout();
+                    } else {
+                      navigate('/signin');
+                    }
+                  }}
+                >
+                  {username ? 'Logout' : 'Login'}
+                </button>
+              </div>
+
             </ul>
         </div>
       

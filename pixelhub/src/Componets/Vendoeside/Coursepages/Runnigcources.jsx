@@ -9,11 +9,7 @@ import Vendornav from '../Vendornavbar/Vendornav';
 function Runnigcources() {
     const navigate=useNavigate();
     const { isAuthenticated, username,userId, role } = useSelector((state) => state.user);
-    console.log("testttttttttttt")
-  
-    console.log(username)
-    console.log(userId)
-    console.log("testttttttttttt")
+    
     const [courses, setCourses] = useState([]);
     useEffect(() => {
       // Fetch courses from the backend and populate the courses state

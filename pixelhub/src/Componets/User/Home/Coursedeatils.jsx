@@ -10,16 +10,23 @@ import QueryString from 'query-string'
 import { useLocation } from 'react-router-dom';
 import { useSelector ,useDispatch } from 'react-redux';
 import Reviews from './Reviews/Reviews';
+import Lottie from 'lottie-react';
+import loadingani from '../../../Animations/loding.json';
 
 function Coursedeatils() {
     const { courseId } = useParams();
     const { isAuthenticated, username,userId, role } = useSelector((state) => state.user);
-    console.log("user id",userId)
-    console.log(courseId)
+    console.log("User ID type:", typeof userId);
+console.log("Course ID type:", typeof courseId);
+
     const [courseDetails, setCourseDetails] = useState({});
     const [showFullContent, setShowFullContent] = useState(false);
     const [videoCount, setVideoCount] = useState(0);
-    console.log("videocount",videoCount)
+    const [usercheck, setusercheck] = useState(false);
+    const [loading, setLoading] = useState(true); // Add loading state
+    console.log("loading",loading)
+
+
 
     const location =useLocation();
     const discountamount = courseDetails.price / courseDetails.discount_percentage;
@@ -44,6 +51,22 @@ function Coursedeatils() {
       }
     }, []);
 
+
+    useEffect(() => {
+
+      axios.get(`/userbuy/${userId}/${courseId}/`)  // Replace 'courseSlug' with the actual slug of the course
+        .then((response) => {
+          setusercheck(response.data);
+
+          console.log(response.data)
+          
+          // Setloading(false)
+        })
+        .catch((error) => {
+          console.error('Error fetching course details:', error);
+        });
+  }, [userId]);
+
     useEffect(() => {
 
         axios.get(`/courses/${courseId}/`)  // Replace 'courseSlug' with the actual slug of the course
@@ -52,10 +75,14 @@ function Coursedeatils() {
             setVideoCount(response.data.video_count); // Set the video count in state
 
             console.log(response.data)
+            setLoading(false); // Set loading to false when courses are loaded
+
             // Setloading(false)
           })
           .catch((error) => {
             console.error('Error fetching course details:', error);
+            setLoading(false); // Set loading to false when courses are loaded
+
           });
     }, [courseId]);
 
@@ -67,7 +94,14 @@ function Coursedeatils() {
   return (
     <>
         <Customenavbar/>
-      
+
+        
+            {loading ? (
+              <div className="flex items-center justify-center h-screen">
+      <Lottie animationData={loadingani} autoplay loop />
+    </div>
+
+    ) : (
 
         <div class="md:flex  md:p-6 w">
             <div class="md:w-3/4 w-full md:p-6 p-2">
@@ -116,31 +150,43 @@ function Coursedeatils() {
                            
                             <div className='justify-center'>
                             {userId ? (
-                        <form action={`${API_URL}/create-checkout-session`} method="POST">
-                          <input type="hidden" name="courseId" value={courseId} />
-                          <input type="hidden" name="userId" value={userId} />
-                          <button
-                            type="submit"
-                            className="w-full inline-block rounded bg-[#2d737a] px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
-                          >
-                            BUY NOW  ₹  {totalamount}
-                          </button>
-                        </form>
-                      ) : (
-                        <Link to="/signin"><li className='group relative px-3 py-2 text-sm font-medium text-back '>
-                        Please sign in to make a purchase
-                        <div className='absolute inset-x-0 bottom-0 h-1 bg-[#FF0000] transform scale-x-0 origin-left transition-transform group-hover:scale-x-100'></div>
-                    </li></Link>
-                    
-                        
-                        
-                      )}
+                              usercheck ? ( // Check if the user has already purchased the course
+                                <div>
+                                  <p className="text-green-500 text-sm font-medium mb-3">You have already purchased this course.</p>
+                                  <Link to="/enrollments">
+                                    <button
+                                      className="w-full inline-block rounded bg-[#2d737a] px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
+                                    >
+                                      Go to Enrollments
+                                    </button>
+                                  </Link>
+                                </div>
+                              ) : (
+                                <form action={`${API_URL}/create-checkout-session`} method="POST">
+                                  <input type="hidden" name="courseId" value={courseId} />
+                                  <input type="hidden" name="userId" value={userId} />
+                                  <button
+                                    type="submit"
+                                    className="w-full inline-block rounded bg-[#2d737a] px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
+                                  >
+                                    BUY NOW ₹ {totalamount}
+                                  </button>
+                                </form>
+                              )
+                            ) : (
+                              <Link to="/signin">
+                                <li className='group relative px-3 py-2 text-sm font-medium text-back '>
+                                  Please sign in to make a purchase
+                                  <div className='absolute inset-x-0 bottom-0 h-1 bg-[#FF0000] transform scale-x-0 origin-left transition-transform group-hover:scale-x-100'></div>
+                                </li>
+                              </Link>
+                            )}
+                          </div>
 
-                            </div>
                       </div>
                     </div>
             </div>
-        </div>
+        </div>)}
         <Reviews id={courseId} />
 
     </>

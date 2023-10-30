@@ -5,16 +5,18 @@ import ReactPaginate from 'react-paginate';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from '../../../axios'
+import PrivateAxios from '../../../interceptor/Interceptor';
 
 function Users() {
   const [users, setUsers] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [pageNumber, setPageNumber] = useState(0);
   const usersPerPage = 10;
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get('/userlist');
+        const response = await PrivateAxios.get('/userlist');
         setUsers(response.data.userlist);
       } catch (error) {
         console.log('Error fetching data', error);
@@ -127,7 +129,7 @@ function Users() {
   );
 
   return (
-    <div className='bg-[#1F2A40] h-screen'>
+    <div className='bg-[#1F2A40] h-full'>
       <Adminnavbar />
       <ToastContainer position="top-center" autoClose={5000} />
       <div className='bg-[#1F2A40]'>

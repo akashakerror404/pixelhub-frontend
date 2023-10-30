@@ -25,7 +25,7 @@ function Chatdetails({id}) {
     const [websocketMessages, setWebsocketMessages] = useState([]);
 
     useEffect(() => {
-        const newSocket = new WebSocket(`ws://127.0.0.1:8000/ws/chat/${roomName}/`);
+        const newSocket = new WebSocket(`ws://16.171.40.176/ws/chat/${roomName}/`);
         setSocket(newSocket);
 
         return () => {
@@ -120,7 +120,7 @@ function Chatdetails({id}) {
 
   return (
     <div>
-                    <div className="flex  flex-col  bg-[#dad3cc] h-[550px] p-4 overflow-y-auto scrollbar-hide">
+                    <div className="flex  flex-col md:h-[450px] h-[395px] p-4 overflow-y-auto scrollbar-hide">
                     {
                     messages.map((message, index) => (
                         <div key={index}
@@ -151,8 +151,8 @@ function Chatdetails({id}) {
              
                 
                 </div>
-                <div className="bg-[#dad3cc] p-4  flex   ">
-                    <input className="border rounded-full p-2 w-full" type="text" placeholder="Type your message..."
+                <div className=" md:p-4  flex   ">
+                    <input className="border rounded-full p-2 w-full bg-gray-100" type="text" placeholder="Type your message..."
                         value={messageInput}
                         onChange={
                             (e) => setMessageInput(e.target.value)

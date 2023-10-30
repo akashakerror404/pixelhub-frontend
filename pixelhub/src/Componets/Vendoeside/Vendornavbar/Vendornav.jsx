@@ -33,7 +33,7 @@ function Vendornav() { // const { isAuthenticated, username, role } = useSelecto
     
     
     useEffect(() => {
-        const newSocket = new WebSocket(`ws://127.0.0.1:8000/ws/note-chat/${roomName}/`);
+        const newSocket = new WebSocket(`ws://16.171.40.176/ws/note-chat/${roomName}/`);
         setSocket(newSocket);
 
         axios.get(`/vendorstudentcount/${userId}/`).then((response) => {

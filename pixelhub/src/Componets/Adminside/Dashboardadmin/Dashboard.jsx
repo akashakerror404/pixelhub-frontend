@@ -1,6 +1,7 @@
 import Adminnavbar from '../Adminnav/Adminnavbar';
 import React, { useState, useEffect } from 'react';
 import axios from '../../../axios';
+import PrivateAxios from '../../../interceptor/Interceptor';
 
 function Dashboard() {
     const [Dashdata, setDashdata] = useState({ last_transactions: [] }); // Set an initial value for last_transactions
@@ -25,7 +26,7 @@ function Dashboard() {
 
     useEffect(() => {
         // Fetch data from the backend using the userId
-        axios.post('/admindash')
+        PrivateAxios.post('/admindash')
             .then((response) => {
                 setDashdata(response.data);
             })

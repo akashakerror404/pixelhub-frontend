@@ -4,6 +4,8 @@ import Slider from "react-slick";
 import React, { useState, useEffect } from 'react';
 import axios from '../../../axios';
 import Skeleton from 'react-loading-skeleton'; // Import the skeleton component
+import loadingani from '../../../Animations/loding.json';
+import Lottie from 'lottie-react'
 
 function Coursecards() {
   
@@ -70,16 +72,26 @@ console.log(courses)
           <>
           <div className='flex justify-evenly gap-3'>
             <div className="skeleton-card horizontal-skeleton">
+
               <Skeleton width={300} height={250} />
+              <Lottie animationData={loadingani} className="w-1/3 " size={30}/>
+
+
             </div>
             <div className="skeleton-card horizontal-skeleton">
               <Skeleton width={300} height={250} />
+              <Lottie animationData={loadingani} className="w-1/3 " size={30}/>
+
             </div>
             <div className="skeleton-card horizontal-skeleton">
               <Skeleton width={300} height={250} />
+              <Lottie animationData={loadingani} className="w-1/3 " size={30}/>
+
             </div>
             <div className="skeleton-card horizontal-skeleton">
               <Skeleton width={300} height={250} />
+              <Lottie animationData={loadingani} className="w-1/3 " size={30}/>
+
             </div>
             </div>
           </>

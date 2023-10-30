@@ -21,7 +21,7 @@ function Cousecardpendingcourse({courses}) {
   // const handlewebsocket=()=>{
     useEffect(() => {
       if (!socket) {
-        const newSocket = new WebSocket(`ws://127.0.0.1:8000/ws/note-chat/${roomName}/`);
+        const newSocket = new WebSocket(`ws://16.171.40.176/ws/note-chat/${roomName}/`);
         newSocket.onopen = () => {
           console.log('WebSocket connection opened');
           setSocket(newSocket);

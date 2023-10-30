@@ -3,6 +3,7 @@ import { BiSolidOffer } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
 import axios from '../../../axios'
 import { useNavigate } from 'react-router-dom';
+import { API_URL } from '../../Baseurl';
 
 function Courseaddcard({ courses }) {
   const navigate=useNavigate();
@@ -31,7 +32,7 @@ function Courseaddcard({ courses }) {
       <h1 className='p-2 truncate font-semi'>{courses.coursename}</h1>
       {courses.coverphoto ? (
         <img
-          src={`http://127.0.0.1:8000${courses.coverphoto}`}
+          src={`${API_URL}${courses.coverphoto}`}
           alt={courses.coursename}
           className='h-40 w-full object-cover'onClick={() => handleImageClick(courses.id)}
         />

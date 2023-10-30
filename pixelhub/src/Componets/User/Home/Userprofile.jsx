@@ -6,13 +6,16 @@ import { BsPencilSquare } from 'react-icons/bs';
 import { TiTick } from 'react-icons/ti';
 import axios from '../../../axios';
 import { API_URL } from '../../Baseurl';
-
+import Lottie from 'lottie-react';
+import loadingani from '../../../Animations/loding.json';
 function Userprofile() {
     const { isAuthenticated, userId } = useSelector((state) => state.user);
     const [userImage, setUserImage] = useState(null);
     const [profile, setProfile] = useState({});
     const [editing, setEditing] = useState(false);
     const [editedUsername, setEditedUsername] = useState('');
+    const [loading, setLoading] = useState(true); // Add loading state
+
     // const [editedEmail, setEditedEmail] = useState('');
     const [editedPhone, setEditedPhone] = useState('');
 
@@ -72,15 +75,25 @@ function Userprofile() {
         axios.get(`/userprofile/${userId}/`)
             .then((response) => {
                 setProfile(response.data);
+                setLoading(false); // Set loading to false when courses are loaded
+
             })
             .catch((error) => {
                 console.error('Error fetching user profile details:', error);
+                setLoading(false); // Set loading to false when courses are loaded
+
             });
     }, [editing]);
 
     return (
         <div>
             <Customenavbar />
+            {loading ? (
+              <div className="flex items-center justify-center h-screen">
+      <Lottie animationData={loadingani} autoplay loop />
+    </div>
+
+    ) : (
             <div className="p-2">
                 <div className="p-8 bg-white mt-24 shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px]">
                     <div className="grid grid-cols-1 md:grid-cols-3">
@@ -161,7 +174,7 @@ function Userprofile() {
                         </button>
                     </div>
                 </div>
-            </div>
+            </div>)}
         </div>
     );
 }

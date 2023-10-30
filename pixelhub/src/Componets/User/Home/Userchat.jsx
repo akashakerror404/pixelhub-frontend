@@ -28,9 +28,27 @@ function Userchat() { // const { vendorId } = useParams();
 
     // Separate state for WebSocket messages
     const [websocketMessages, setWebsocketMessages] = useState([]);
+    // const [isToggled, setIsToggled] = useState(false);
+
+    // useEffect(() => {
+    //     // Function to toggle the state between true and false
+    //     const toggleStateEverySecond = () => {
+    //         setIsToggled((prevToggled) => !prevToggled);
+    //     };
+
+    //     // Set an interval to call the toggle function every second (1000 milliseconds)
+    //     const intervalId = setInterval(toggleStateEverySecond, 1000);
+
+    //     // Clear the interval when the component unmounts
+    //     return () => {
+    //         if (intervalId) {
+    //             clearInterval(intervalId);
+    //         }
+    //     };
+    // }, []);
 
     useEffect(() => {
-        const newSocket = new WebSocket(`ws://127.0.0.1:8000/ws/chat/${roomName}/`);
+        const newSocket = new WebSocket(`ws://16.171.40.176/ws/chat/${roomName}/`);
         setSocket(newSocket);
 
         return() => {
@@ -38,7 +56,7 @@ function Userchat() { // const { vendorId } = useParams();
                 newSocket.close();
             }
         };
-    }, [roomName]);
+    }, [roomName ] );
 
     useEffect(() => {
         if (socket) {
@@ -152,9 +170,9 @@ function Userchat() { // const { vendorId } = useParams();
                         <div className="py-1 ">
 
 
-                            <div className="flex justify-center ">
-                                <div className="rounded py-2 px-4 bg-[#FCF4CB] ">
-                                    <p className="md:text-xs text-[3px] ">
+                            <div className="flex justify-center  ">
+                                <div className="rounded py-2 px-1 bg-[#FCF4CB] ">
+                                    <p className="md:text-xs text-[8px] ">
                                         Messages to this chat and calls are now secured with end-to-end encryption.
                                     </p>
                                 </div>
@@ -167,7 +185,7 @@ function Userchat() { // const { vendorId } = useParams();
 
 
 
-                <div className="flex  flex-col  bg-[#dad3cc] md:h-[540px] h-[460px] p-4 overflow-y-auto scrollbar-hide">
+                <div className="flex  flex-col  bg-[#dad3cc] md:h-[540px] h-[545px] p-4 overflow-y-auto scrollbar-hide">
                     {
                     messages.map((message, index) => (
                         <div key={index}

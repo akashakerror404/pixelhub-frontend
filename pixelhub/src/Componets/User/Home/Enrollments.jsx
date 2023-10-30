@@ -5,11 +5,14 @@ import axios from '../../../axios';
 import { useSelector } from 'react-redux';
 import Customenavbar from '../Navbar/Customenavbar';
 import Enrollmentprogresscard from './Enrollmentprogresscard';
-
+import Lottie from 'lottie-react';
+import loadingani from '../../../Animations/loding.json';
 function Enrollments() {
   const { userId } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const [courses, setCourses] = useState([]);
+  const [loading, setLoading] = useState(true); // Add loading state
+
 
   useEffect(() => {
     // Fetch courses from the backend and populate the courses state
@@ -17,15 +20,25 @@ function Enrollments() {
       .then((response) => {
         setCourses(response.data.courses); // Assuming the courses are in the 'courses' property of the response
         console.log(response.data.courses)
+        setLoading(false); // Set loading to false when courses are loaded
+
       })
       .catch((error) => {
         console.error('Error fetching courses:', error);
+        setLoading(false); // Set loading to false when courses are loaded
+
       });
   }, [userId]);
 
   return (
     <>
       <Customenavbar />
+      {loading ? (
+              <div className="flex items-center justify-center h-screen">
+      <Lottie animationData={loadingani} autoplay loop />
+    </div>
+
+    ) : (
       <div className='md:p-6 p-2 bg-[#f2f5eb]'>
       <div className="flex ">
         <div className="w-full   bg-[#f2f5eb]  ">
@@ -43,7 +56,8 @@ function Enrollments() {
           ))}
         </div>
       </div>
-      </div>
+
+      </div>)}
     </>
   );
 }
