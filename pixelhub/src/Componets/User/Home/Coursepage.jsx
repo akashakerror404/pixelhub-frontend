@@ -8,6 +8,8 @@ import Skeleton from 'react-loading-skeleton'; // Import Skeleton
 import {BiSolidOffer} from 'react-icons/bi';
 import Lottie from 'lottie-react'
 import loadingani from '../../../Animations/loding.json';
+import Footer from '../Home/Footer';
+
 function Coursepage() {
   const [courses, setCourses] = useState([]);
   const [filteredCourses, setFilteredCourses] = useState([]);
@@ -109,6 +111,7 @@ function Coursepage() {
 
         
       </div>
+      <Footer/>
     </>
   );
 }
