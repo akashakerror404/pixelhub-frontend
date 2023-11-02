@@ -29,6 +29,8 @@ function Customenavbar() {
           // Check for the appropriate status code
   
           dispatch(clearUserData());
+          localStorage.clear();
+
           axios.defaults.headers.common["Authorization"] = null;
           navigate('/signin');
           console.log("success");

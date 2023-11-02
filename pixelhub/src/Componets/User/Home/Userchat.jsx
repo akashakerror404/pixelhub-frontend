@@ -5,6 +5,8 @@ import axios from '../../../axios';
 import Customenavbar from '../Navbar/Customenavbar'
 import {useLocation} from 'react-router-dom';
 import '../Home/css/chat.css'
+import {AiOutlineSend} from 'react-icons/ai';
+import EmojiPicker from 'emoji-picker-react';
 
 function Userchat() { // const { vendorId } = useParams();
     const location = useLocation();
@@ -26,26 +28,27 @@ function Userchat() { // const { vendorId } = useParams();
     console.log("room name", roomName)
 
 
+
+    // sudeesh.
+    const scrollToBottom = () => {
+        if (messageContainerRef.current) {
+          messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
+        }
+      };
+      useEffect(() => {
+        // Scroll to the bottom of the message container when messages change
+        if (messageContainerRef.current) {
+            messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
+        }
+    }, [messages]);
+
+    // sudessh
+
+
+
     // Separate state for WebSocket messages
     const [websocketMessages, setWebsocketMessages] = useState([]);
-    // const [isToggled, setIsToggled] = useState(false);
 
-    // useEffect(() => {
-    //     // Function to toggle the state between true and false
-    //     const toggleStateEverySecond = () => {
-    //         setIsToggled((prevToggled) => !prevToggled);
-    //     };
-
-    //     // Set an interval to call the toggle function every second (1000 milliseconds)
-    //     const intervalId = setInterval(toggleStateEverySecond, 1000);
-
-    //     // Clear the interval when the component unmounts
-    //     return () => {
-    //         if (intervalId) {
-    //             clearInterval(intervalId);
-    //         }
-    //     };
-    // }, []);
 
     useEffect(() => {
         const newSocket = new WebSocket(`wss://www.pixel-hub.online/ws/chat/${roomName}/`);
@@ -55,8 +58,9 @@ function Userchat() { // const { vendorId } = useParams();
             if (newSocket) {
                 newSocket.close();
             }
+            
         };
-    }, [roomName ] );
+    }, [roomName]);
 
     useEffect(() => {
         if (socket) {
@@ -98,6 +102,8 @@ function Userchat() { // const { vendorId } = useParams();
 
                 if (response.data) {
                     setMessages(response.data);
+                    
+
                 }
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -111,6 +117,7 @@ function Userchat() { // const { vendorId } = useParams();
         if (messageInput.trim() === '') 
             return;
         
+
         try {
             const newMessage = {
                 sender: userId,
@@ -128,6 +135,9 @@ function Userchat() { // const { vendorId } = useParams();
                     socket.send(JSON.stringify(newMessage));
                 }
                 setMessageInput('');
+                if (messageContainerRef.current) {
+                    messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
+                }
             }
         } catch (error) {
             console.error('Error sending message:', error);
@@ -142,28 +152,39 @@ function Userchat() { // const { vendorId } = useParams();
         ]);
     }, [websocketMessages]);
 
+
+
+    // const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+    // const [chosenEmoji, setChosenEmoji] = useState(null);
+
+
+    // const onEmojiClick = (event, emojiObject) => {
+    //     setMessageInput(emojiObject);
+    // };
+
+
     return (
         <div>
             <Customenavbar/>
             <div className='flex flex-col '>
-                    <div className="py-2 px-3 bg-[#e4f2ee] flex flex-row justify-between items-center">
-                        <div className="flex items-center">
-                            <div>
-                                <img className="w-10 h-10 rounded-full" src="https://darrenjameseeley.files.wordpress.com/2014/09/expendables3.jpeg" alt="User Profile"/>
-                            </div>
-                            <div className="ml-4">
-                                <p className="text-grey-darkest">
-                                    {vendorname} </p>
-                                <p className="text-grey-darker text-xs ">
-                                    active yesterday
-                                </p>
-                            </div>
+                <div className="py-2 px-3 bg-[#e4f2ee] flex flex-row justify-between items-center">
+                    <div className="flex items-center">
+                        <div>
+                            <img className="w-10 h-10 rounded-full" src="https://www.iconpacks.net/icons/2/free-user-icon-3297-thumb.png" alt="User Profile"/>
                         </div>
-
-
+                        <div className="ml-4">
+                            <p className="text-grey-darkest">
+                                {vendorname} </p>
+                            <p className="text-grey-darker text-xs ">
+                                active yesterday
+                            </p>
+                        </div>
                     </div>
 
-                    <div className=" bg-[#dad3cc]  flex  flex-row justify-center items-center ">
+
+                </div>
+
+                <div className=" bg-[#dad3cc]  flex  flex-row justify-center items-center ">
 
 
                     <div className="flex-1  bg-[#dad3cc]   absolute mt-12 ">
@@ -181,11 +202,10 @@ function Userchat() { // const { vendorId } = useParams();
 
                         </div>
                     </div>
-                    </div>
+                </div>
 
 
-
-                <div className="flex  flex-col  bg-[#dad3cc] md:h-[540px] h-[545px] p-4 overflow-y-auto scrollbar-hide">
+                <div className="flex flex-col bg-[#dad3cc] md:h-[610px] h-[460px] p-4 overflow-y-auto scrollbar-hide " ref={messageContainerRef} >
                     {
                     messages.map((message, index) => (
                         <div key={index}
@@ -211,27 +231,40 @@ function Userchat() { // const { vendorId } = useParams();
                             } </div>
                         </div>
                     ))
-                }
-
-             
-                
-                </div>
+                } </div>
                 <div className="bg-[#dad3cc] p-4  flex   ">
-                    <input className="border rounded-full p-2 w-full" type="text" placeholder="Type your message..."
+                {/* <span
+                        className='mt-2 text-2xl'
+                        onClick={() => setShowEmojiPicker(!showEmojiPicker)} // Toggle emoji picker
+                    >😎</span>
+
+                    {showEmojiPicker && (
+                        <EmojiPicker onEmojiClick={onEmojiClick} /> // Pass the emoji selection handler
+                    )} */}
+
+                    <input className="border-none rounded-full p-2 w-full" type="text" placeholder="Type your message..."
+                    
                         value={messageInput}
                         onChange={
                             (e) => setMessageInput(e.target.value)
+                        }
+                        onKeyDown={
+                            (e) => {
+                                if (e.key === "Enter") {
+                                    e.preventDefault();
+                                    handleSendMessage();
+                                }
+                            }
                         }/>
-                    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800  font-medium rounded-full text-sm p-3 text-center inline-flex items-center mr-2 "
+                    <button type="button" class=" font-medium rounded-full text-sm p-3 text-center inline-flex items-center mr-2 "
                         onClick={handleSendMessage}>
-                        <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                        </svg>
+                        <AiOutlineSend color='green'
+                            size={20}/>
+
                     </button>
                 </div>
 
 
-               
             </div>
 
 

@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import axios from '../../../axios';
 import Vendornav from '../Vendornavbar/Vendornav';
+import { AiOutlineSend } from 'react-icons/ai';
+
 function Chatdetails({id}) {
     const vendorId=id
     console.log("vendorId",vendorId)
@@ -20,24 +22,7 @@ function Chatdetails({id}) {
     const roomName = `${userId}_${vendorId}`;
     console.log("room name",roomName)
 
-    // const [isToggled, setIsToggled] = useState(false);
-
-    // useEffect(() => {
-    //     // Function to toggle the state between true and false
-    //     const toggleStateEverySecond = () => {
-    //         setIsToggled((prevToggled) => !prevToggled);
-    //     };
-
-    //     // Set an interval to call the toggle function every second (1000 milliseconds)
-    //     const intervalId = setInterval(toggleStateEverySecond, 1000);
-
-    //     // Clear the interval when the component unmounts
-    //     return () => {
-    //         if (intervalId) {
-    //             clearInterval(intervalId);
-    //         }
-    //     };
-    // }, []);
+   
 
 
     // Separate state for WebSocket messages
@@ -125,7 +110,6 @@ function Chatdetails({id}) {
         }
     };
 
-    // Update messages when WebSocket messages are received
     useEffect(() => {
         setMessages((prevMessages) => [...prevMessages, ...websocketMessages]);
     }, [websocketMessages]);
@@ -171,16 +155,17 @@ function Chatdetails({id}) {
                 
                 </div>
                 <div className=" md:p-4  flex   ">
+                <span className='mt-2 text-2xl'>😎</span>
+
                     <input className="border rounded-full p-2 w-full bg-gray-100" type="text" placeholder="Type your message..."
                         value={messageInput}
                         onChange={
                             (e) => setMessageInput(e.target.value)
                         }/>
-                    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800  font-medium rounded-full text-sm p-3 text-center inline-flex items-center mr-2 "
+                    <button type="button" class=" font-medium rounded-full text-sm p-3 text-center inline-flex items-center mr-2 "
                         onClick={handleSendMessage}>
-                        <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                        </svg>
+                                                    <AiOutlineSend color='green' size={20}/>
+
                     </button>
                 </div>
         </div>

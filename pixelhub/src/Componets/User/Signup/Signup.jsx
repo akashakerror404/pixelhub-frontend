@@ -12,6 +12,8 @@ import { Link } from 'react-router-dom';
 import camera from '../../../Animations/camera.json';
 import Lottie from 'lottie-react'
 import earth from '../../../Animations/earth.json';
+import loadingani from '../../../Animations/loadingfirst.json';
+
 
 function Signup() {
      const navigate=useNavigate();
@@ -27,6 +29,10 @@ function Signup() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [showEarth, setShowEarth] = useState(true);
+    const [isLoading, setIsLoading] = useState(false); // Loading state
+    const [isLoadingg, setisLoadingg] = useState(false);
+
+
 
 
     const [passwordStrength, setPasswordStrength] = useState({
@@ -59,6 +65,7 @@ function Signup() {
         toast.error('Password and Confirm Password do not match.');
         return;
       }
+      setisLoadingg(true)
       // Access form data from state variables
       console.log('Username:', username);
       console.log('Email:', email);
@@ -93,6 +100,8 @@ function Signup() {
                       }
         
       }catch(error){
+        setisLoadingg(false)
+
         toast.error('username alredy exist.');
 
         console.error('Login failed:', error.message );
@@ -136,6 +145,13 @@ useEffect(() => {
 
   </div>
   <div class="md:w-1/2 bg-white ">
+  {isLoadingg ? (
+              <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-70 ">
+
+                    <Lottie animationData={loadingani} className="w-2/6 " size={40}/>
+
+                        
+                </div>):""}
   <div className="px-4 md:px-0 ">
               <div className="md:mx-6 md:p-12">
                 {/* <!--Logo--> */}
@@ -153,6 +169,7 @@ useEffect(() => {
                     <h2 className="font-normal mb-2 text-xl text-center subpixel-antialiased">Sign Up</h2>
                     <p className="text-gray-500 mb-3"></p>
                     <input
+                    style={{cursor:'pointer'}}
                     className="mb-4 w-full border rounded-full border-gray-300 px-3 py-2 outline-none focus:border-blue-500 text-lg"
                     type="text"
                     placeholder="Username"
@@ -161,6 +178,7 @@ useEffect(() => {
                     />
                     
                     <input
+                    style={{cursor:'pointer'}}
                     className="mb-4 w-full border rounded-full border-gray-300 px-3 py-2 outline-none focus:border-blue-500 text-lg"
                     type="email"
                     placeholder="Email address"
@@ -168,6 +186,7 @@ useEffect(() => {
                     onChange={(e) => setEmail(e.target.value)}
                     />
                     <input
+                    style={{cursor:'pointer'}}
                     className="mb-4 w-full border border-gray-300 rounded-full px-3 py-2 outline-none focus:border-blue-500 text-lg"
                     type="phone"
                     placeholder="Phone Number"
@@ -175,6 +194,7 @@ useEffect(() => {
                     onChange={(e) => setPhone(e.target.value)}
                     />
                      <input
+                     style={{cursor:'pointer'}}
                     className="mb-4 w-full border border-gray-300 rounded-full px-3 py-2 outline-none focus:border-blue-500 text-lg"
                     type="password"
                     placeholder="Password"
@@ -188,6 +208,7 @@ useEffect(() => {
                     <p className="text-red-500 text-xs">Password must contain at least one digit.</p>
                   )}
                     <input
+                    style={{cursor:'pointer'}}
                     className="mb-4 w-full border border-gray-300 rounded-full px-3 py-2 outline-none focus:border-blue-500 text-lg"
                     type="password"
                     placeholder="Re-enter Password"
@@ -197,7 +218,8 @@ useEffect(() => {
                      {password !== confirmPassword && confirmPassword !== '' && (
                     <p className="text-red-500 text-sm">Password and Confirm Password do not match.</p>
                   )}
-                  <button class="w-full h-12 px-6 text-white transition-colors duration-150 bg-blue-700 rounded-lg focus:shadow-outline hover:text-white hover:bg-blue-700" onClick={handleSubmit}>Signup</button>
+                  <button class="w-full h-12 px-6 text-white transition-colors duration-150 bg-blue-700 rounded-lg focus:shadow-outline hover:text-white hover:bg-blue-700" onClick={handleSubmit}>Signup
+                  </button>
 
                   
                     

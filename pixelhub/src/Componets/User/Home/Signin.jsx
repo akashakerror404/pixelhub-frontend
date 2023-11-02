@@ -13,6 +13,8 @@ import axios from '../../../axios'
 import earth from '../../../Animations/earth.json';
 import Lottie from 'lottie-react'
 import camera from '../../../Animations/camera.json';
+import loadingani from '../../../Animations/loadingfirst.json';
+
 
 
 function Signin() {
@@ -24,10 +26,13 @@ function Signin() {
  
    const [password, setPassword] = useState('');
    const [showEarth, setShowEarth] = useState(true);
+   const [isLoading, setisLoading] = useState(false);
+
 
  
    const handleSubmit = async (e) => { // Add 'async' here
     e.preventDefault();
+    setisLoading(true)
     const user = {
       username: username,
       password: password,
@@ -78,6 +83,8 @@ function Signin() {
       }
     } catch (error) {
       if (error.response) {
+        setisLoading(false)
+
         // If the server returns an error response
         if (error.response.status === 401) {
           // Unauthorized (user name or password not matched)
@@ -146,6 +153,15 @@ function Signin() {
         </div>
 
             <div className="px-4 md:px-0 lg:w-6/12">
+              {/* test */}
+              {isLoading ? (
+              <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-70 ">
+
+                    <Lottie animationData={loadingani} className="w-2/6 " size={40}/>
+
+                        
+                </div>):""}
+              {/* test */}
               <div className="md:mx-6 md:p-12">
                 <div className="flex justify-center items-center">
                   <img
@@ -157,12 +173,20 @@ function Signin() {
                 </div>
 
                 <div className="bg-white mx-auto rounded-lg max-w-md p-1">
+
+                   {/* <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-70 ">
+
+                    <Lottie animationData={loadingani} className="w-2/6 " size={40}/>
+
+                        
+                </div> */}
                 <div className="p-5 w-100 flex flex-col items-center">
                     <h2 className="font-normal mb-2 text-xl text-center subpixel-antialiased">Sign In</h2>
                     <p className="text-gray-500 mb-3"></p>
                     <input
                     className="mb-4 w-full border border-gray-300 rounded-full px-3 py-2 outline-none focus:border-blue-500 text-lg"
                     type="text"
+                    style={{cursor:'pointer'}}
                     placeholder="Username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
@@ -170,6 +194,7 @@ function Signin() {
                
                   
                     <input
+                    style={{cursor:'pointer'}}
                     className="mb-4 w-full border border-gray-300 rounded-full px-3 py-2 outline-none focus:border-blue-500 text-lg"
                     type="password"
                     placeholder="Password"
@@ -179,11 +204,11 @@ function Signin() {
                   
               <button class="w-full h-12 px-6 text-white transition-colors duration-150 bg-blue-700 rounded-lg focus:shadow-outline hover:text-white hover:bg-blue-700" onClick={handleSubmit}>Signin</button>
 
-              <span className='text-gray-700 mt-3 hover:text-red-500' onClick={()=>navigate('/forgotpassword')}>forgot password ?</span>
+              <span className='text-gray-700 mt-3 hover:text-red-500'style={{cursor:'pointer'}} onClick={()=>navigate('/forgotpassword')}>forgot password ?</span>
 
                     <p className="text-gray-700 mt-3 text-center">
                     Don't have an account?{' '}
-                    <a onClick={()=>navigate('/signup')}  className="text-blue-500">
+                    <a onClick={()=>navigate('/signup')}  className="text-blue-500" style={{cursor:'pointer'}}>
                         Sign Up
                     </a>
                     </p>
