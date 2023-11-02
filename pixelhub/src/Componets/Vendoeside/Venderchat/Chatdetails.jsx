@@ -20,31 +20,31 @@ function Chatdetails({id}) {
     const roomName = `${userId}_${vendorId}`;
     console.log("room name",roomName)
 
-    const [isToggled, setIsToggled] = useState(false);
+    // const [isToggled, setIsToggled] = useState(false);
 
-    useEffect(() => {
-        // Function to toggle the state between true and false
-        const toggleStateEverySecond = () => {
-            setIsToggled((prevToggled) => !prevToggled);
-        };
+    // useEffect(() => {
+    //     // Function to toggle the state between true and false
+    //     const toggleStateEverySecond = () => {
+    //         setIsToggled((prevToggled) => !prevToggled);
+    //     };
 
-        // Set an interval to call the toggle function every second (1000 milliseconds)
-        const intervalId = setInterval(toggleStateEverySecond, 1000);
+    //     // Set an interval to call the toggle function every second (1000 milliseconds)
+    //     const intervalId = setInterval(toggleStateEverySecond, 1000);
 
-        // Clear the interval when the component unmounts
-        return () => {
-            if (intervalId) {
-                clearInterval(intervalId);
-            }
-        };
-    }, []);
+    //     // Clear the interval when the component unmounts
+    //     return () => {
+    //         if (intervalId) {
+    //             clearInterval(intervalId);
+    //         }
+    //     };
+    // }, []);
 
 
     // Separate state for WebSocket messages
     const [websocketMessages, setWebsocketMessages] = useState([]);
 
     useEffect(() => {
-        const newSocket = new WebSocket(`wss://16.171.40.176/ws/chat/${roomName}/`);
+        const newSocket = new WebSocket(`wss://www.pixel-hub.online/ws/chat/${roomName}/`);
         setSocket(newSocket);
 
         return () => {
@@ -52,7 +52,7 @@ function Chatdetails({id}) {
                 newSocket.close();
             }
         };
-    }, [roomName,isToggled]);
+    }, [roomName]);
 
     useEffect(() => {
         if (socket) {
@@ -98,7 +98,7 @@ function Chatdetails({id}) {
         };
 
         fetchData();
-    }, [vendorId,isToggled]);
+    }, [vendorId]);
 
     const handleSendMessage = async () => {
         if (messageInput.trim() === '') return;
