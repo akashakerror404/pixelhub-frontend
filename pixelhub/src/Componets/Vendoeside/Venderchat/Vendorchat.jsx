@@ -12,7 +12,9 @@ function Vendorchat() {
     const { userId, username } = useSelector((state) => state.user);
     const[selectedChat,setSelectedChat] = useState({
       id:null,
-      username:""
+      username:"",
+      profileimage:""
+
     })
     const [socket, setSocket] = useState(null);
 
@@ -79,7 +81,7 @@ function Vendorchat() {
                               </div>
                               <div className="ml-4 flex-1 border-b border-grey-lighter py-4">
                                 <div key={user.id} className="flex items-bottom justify-between">
-                                  <p className="text-grey-darkest" onClick={()=>setSelectedChat({id:user.id,username:user.username}) } >
+                                  <p className="text-grey-darkest" onClick={()=>setSelectedChat({id:user.id,username:user.username,profileimage:user.profileimage}) } >
                                   {user.username}
                                   </p>
                                   <p className="text-xs text-grey-darkest">
@@ -119,7 +121,7 @@ function Vendorchat() {
                   </div>
                   <div className="ml-4 flex-1 border-b border-grey-lighter py-4">
                     <div key={user.id} className="flex items-bottom justify-between">
-                      <p className="text-grey-darkest" onClick={()=>setSelectedChat({id:user.id,username:user.username}) } >
+                      <p className="text-grey-darkest" onClick={()=>setSelectedChat({id:user.id,username:user.username,profileimage:user.profileimage}) } >
                       {user.username}
                       </p>
                       <p className="text-xs text-grey-darkest">
@@ -142,7 +144,9 @@ function Vendorchat() {
     <div className="py-2 px-3 bg-[#e4f2ee] flex flex-row justify-between items-center">
       <div className="flex items-center">
         <div>
-          <img className="w-10 h-10 rounded-full" src="https://darrenjameseeley.files.wordpress.com/2014/09/expendables3.jpeg" alt="User Profile" />
+          {/* <img className="w-10 h-10 rounded-full" src="https://darrenjameseeley.files.wordpress.com/2014/09/expendables3.jpeg" alt="User Profile" /> */}
+          <img className="w-10 h-10 rounded-full" src={`${API_URL}${selectedChat && selectedChat.profileimage}`} alt="User Profile" />
+
         </div>
         <div className="ml-4">
           <p className="text-grey-darkest">
