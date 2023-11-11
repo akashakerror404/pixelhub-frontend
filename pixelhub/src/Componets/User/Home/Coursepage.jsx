@@ -27,13 +27,11 @@ function Coursepage() {
       })
       .catch((error) => {
         console.error('Error fetching course data:', error);
-        setLoading(false); // Set loading to false in case of an error
 
       });
   }, []);
 
   useEffect(() => {
-    // Apply both category and search filters
     const filtered = courses.filter((course) => {
       return (
         (selectedCategory === null || course.category === selectedCategory) &&

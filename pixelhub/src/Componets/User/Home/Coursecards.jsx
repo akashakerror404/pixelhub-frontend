@@ -68,7 +68,6 @@ console.log(courses)
             <Card key={course.id} course={course} />
           ))
         ) : (
-          // Use skeleton loading when data is being fetched
           <>
           <div className='flex justify-evenly gap-3'>
             <div className="skeleton-card horizontal-skeleton">

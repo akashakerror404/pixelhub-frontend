@@ -32,6 +32,8 @@ function Signin() {
  
    const handleSubmit = async (e) => { // Add 'async' here
     e.preventDefault();
+    // localStorage.clear();
+
     setisLoading(true)
     const user = {
       username: username,

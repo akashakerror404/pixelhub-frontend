@@ -205,7 +205,7 @@ function Userchat() { // const { vendorId } = useParams();
                 </div>
 
 
-                <div className="flex flex-col bg-[#dad3cc] md:h-[610px] h-[460px] p-4 overflow-y-auto scrollbar-hide " ref={messageContainerRef} >
+                <div className="flex flex-col bg-[#dad3cc] md:h-[610px] h-[685px] p-4 overflow-y-auto scrollbar-hide " ref={messageContainerRef} >
                     {
                     messages.map((message, index) => (
                         <div key={index}
