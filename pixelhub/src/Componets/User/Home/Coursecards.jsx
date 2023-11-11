@@ -77,10 +77,11 @@ console.log(courses)
 
 
             </div>
+            <div className='hidden md:flex'>
             <div className="skeleton-card horizontal-skeleton">
               <Skeleton width={300} height={250} />
-              <Lottie animationData={loadingani} className="w-1/3 " size={30}/>
-
+              <Lottie animationData={loadingani} className="md:w-1/3  " size={30}/>
+              
             </div>
             <div className="skeleton-card horizontal-skeleton">
               <Skeleton width={300} height={250} />
@@ -90,8 +91,11 @@ console.log(courses)
             <div className="skeleton-card horizontal-skeleton">
               <Skeleton width={300} height={250} />
               <Lottie animationData={loadingani} className="w-1/3 " size={30}/>
+              
 
             </div>
+            </div>
+
             </div>
           </>
         )}
